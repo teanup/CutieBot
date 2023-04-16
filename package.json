@@ -1,21 +1,39 @@
 {
-  "dependencies": {
-    "@discordjs/rest": "^1.3.0",
-    "chalk": "^4.1.2",
-    "color-thief-node": "^1.0.4",
-    "cron": "^2.1.0",
-    "discord-api-types": "^0.37.14",
-    "discord.js": "^14.6.0",
-    "dotenv": "^16.0.3",
-    "puppeteer": "^19.2.0"
-  },
-  "name": "cutiebot",
+  "name": "beebot",
   "version": "1.0.0",
-  "description": "",
-  "main": "src/bot.js",
+  "description": "Bot for managing Peanut's Minecraft server",
+  "main": "index.js",
   "scripts": {
-    "test": "node src/bot.js"
+    "start": "ts-node src/index.ts",
+    "start:dev": "ts-node-dev src/index.ts",
+    "start:prod": "node dist/index.js",
+    "clear": "ts-node src/clear-commands.ts",
+    "clear:dev": "ts-node-dev src/clear-commands.ts",
+    "clear:prod": "node dist/clear-commands.js",
+    "build": "tsc",
+    "watch": "tsc -w && sed -i 's/\\.ts/\\.js/g' dist/*/*.js",
+    "fix": "sed -i 's/\\.ts/\\.js/g' dist/structures/Client.js",
+    "buildx": "tsc && sed -i 's/\\.ts/\\.js/g' dist/structures/Client.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oligonyx/BeeBot.git"
   },
   "author": "peanut#4445",
-  "license": "ISC"
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/oligonyx/BeeBot/issues"
+  },
+  "homepage": "https://github.com/oligonyx/BeeBot#readme",
+  "dependencies": {
+    "@types/glob": "^8.1.0",
+    "@types/node": "^18.15.11",
+    "cron": "^2.3.0",
+    "discord.js": "^14.9.0",
+    "dotenv": "^16.0.3",
+    "glob": "^10.1.0",
+    "ts-node": "^10.9.1",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.0.4"
+  }
 }
