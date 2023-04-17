@@ -131,14 +131,12 @@ export class ExtendedClient extends Client {
       appCommands.push(command);
     });
 
-    // Register commands, presence and cron jobs
+    // Register commands
     this.on("ready", async () => {
       await this.registerCommands({
         commands: appCommands,
         guildId: this.guildId
       });
-      await this.setPresence();
-      await this.setCronJobs();
     });
 
     // Load buttons
