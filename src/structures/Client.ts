@@ -80,9 +80,8 @@ export class ExtendedClient extends Client {
   }
 
   // Load methods
-  loadRoles = async () => (await this.importFile(`${__dirname}/../bin/LoadRoles.ts`))(this);
-  loadChannels = async () => (await this.importFile(`${__dirname}/../bin/LoadChannels.ts`))(this);
-  loadMessages = async () => (await this.importFile(`${__dirname}/../bin/LoadMessages.ts`))(this);
+  setPresence = async () => (await this.importFile(`${__dirname}/../bin/SetPresence.ts`))(this);
+  setCronJobs = async () => (await this.importFile(`${__dirname}/../bin/SetCronJobs.ts`))(this);
   getComponents = async (messageId: string) => (await this.importFile(`${__dirname}/../bin/GetComponents.ts`))(messageId);
   getMessageData = async (messageId: string) => (await this.importFile(`${__dirname}/../bin/GetMessageData.ts`))(this, messageId);
   getText = async (textId: string) => (await this.importFile(`${__dirname}/../bin/GetText.ts`))(textId);
@@ -132,12 +131,14 @@ export class ExtendedClient extends Client {
       appCommands.push(command);
     });
 
-    // Register commands
+    // Register commands, presence and cron jobs
     this.on("ready", async () => {
       await this.registerCommands({
         commands: appCommands,
         guildId: this.guildId
       });
+      await this.setPresence();
+      await this.setCronJobs();
     });
 
     // Load buttons
