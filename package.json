@@ -26,6 +26,7 @@
   },
   "homepage": "https://github.com/oligonyx/BeeBot#readme",
   "dependencies": {
+    "@types/cron": "^2.0.1",
     "@types/glob": "^8.1.0",
     "@types/node": "^18.15.11",
     "cron": "^2.3.0",
