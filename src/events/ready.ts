@@ -7,4 +7,6 @@ export default new Event("ready", async () => {
   // Set presence and cron jobs
   await client.setPresence();
   await client.setCronJobs();
+  // Load replies
+  await client.LoadReplies();
 });

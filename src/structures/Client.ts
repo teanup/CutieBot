@@ -16,12 +16,10 @@ export class ExtendedClient extends Client {
   clientId = process.env.CLIENT_ID;
   guildId = process.env.GUILD_ID;
 
-  gRoles: Collection<string, string> = new Collection();
-  gChannels: Collection<string, string> = new Collection();
-  gMessages: Collection<string, string> = new Collection();
+  replies: Collection<string, { regex: RegExp, emoji: string, replies: string[] }> = new Collection();
 
   constructor() {
-    super({ intents: ["Guilds", "GuildMessages", "GuildMembers", "GuildMessageReactions"] });
+    super({ intents: ["Guilds", "GuildMessages", "GuildMembers", "GuildMessageReactions", "MessageContent"] });
   }
 
   log(message: string, type?: "success" | "error" | "warn" | "info" | "loading") {
@@ -80,6 +78,7 @@ export class ExtendedClient extends Client {
   }
 
   // Load methods
+  LoadReplies = async () => (await this.importFile(`${__dirname}/../bin/LoadReplies.ts`))(this);
   setPresence = async () => (await this.importFile(`${__dirname}/../bin/SetPresence.ts`))(this);
   setCronJobs = async () => (await this.importFile(`${__dirname}/../bin/SetCronJobs.ts`))(this);
   getComponents = async (messageId: string) => (await this.importFile(`${__dirname}/../bin/GetComponents.ts`))(messageId);
