@@ -1,7 +1,7 @@
-import { ApplicationCommandDataResolvable, Client, ClientEvents, Collection, GuildMember } from "discord.js";
+import { ApplicationCommandDataResolvable, Client, ClientEvents, Collection, Message } from "discord.js";
 import { glob } from "glob";
 import { Event } from "./Event";
-import { RegisterCommandOptions } from "../typings/Client";
+import { RegisterCommandOptions, ReplyType } from "../typings/Client";
 import { ExtendedCommandType } from "../typings/Command";
 import { ExtendedButtonType } from "../typings/Button";
 import { ExtendedSelectMenuType } from "../typings/SelectMenu";
@@ -16,7 +16,9 @@ export class ExtendedClient extends Client {
   clientId = process.env.CLIENT_ID;
   guildId = process.env.GUILD_ID;
 
-  replies: Collection<string, { regex: RegExp, emoji: string, replies: string[] }> = new Collection();
+  replies: Collection<string, ReplyType> = new Collection();
+
+  picChannelId = process.env.CHANNEL_PICTURES;
 
   constructor() {
     super({ intents: ["Guilds", "GuildMessages", "GuildMembers", "GuildMessageReactions", "MessageContent"] });
@@ -84,9 +86,8 @@ export class ExtendedClient extends Client {
   getComponents = async (messageId: string) => (await this.importFile(`${__dirname}/../bin/GetComponents.ts`))(messageId);
   getMessageData = async (messageId: string) => (await this.importFile(`${__dirname}/../bin/GetMessageData.ts`))(this, messageId);
   getText = async (textId: string) => (await this.importFile(`${__dirname}/../bin/GetText.ts`))(textId);
-  hasRole = async (member: GuildMember, roleId: string) => (await this.importFile(`${__dirname}/../bin/HasRole.ts`))(this, member, roleId);
-  addRole = async (member: GuildMember, roleId: string) => (await this.importFile(`${__dirname}/../bin/AddRole.ts`))(this, member, roleId);
-  removeRole = async (member: GuildMember, roleId: string) => (await this.importFile(`${__dirname}/../bin/RemoveRole.ts`))(this, member, roleId);
+  autoReply = async (message: Message, reply: ReplyType, defaultChance: number) => (await this.importFile(`${__dirname}/../bin/AutoReply.ts`))(message, reply, defaultChance);
+  registerPic = async (message: Message, picUrl: string, fileName: string) => (await this.importFile(`${__dirname}/../bin/RegisterPic.ts`))(message, picUrl, fileName);
 
   async registerCommands({ commands, guildId }: RegisterCommandOptions) {
     if (guildId) {
