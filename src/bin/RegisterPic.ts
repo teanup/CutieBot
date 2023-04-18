@@ -1,6 +1,7 @@
 import { Attachment, AttachmentBuilder, EmbedBuilder, Message, TextChannel } from "discord.js";
 import { ExtendedClient } from "src/structures/Client";
 import { promises, unlink } from "fs";
+import { ActionRowBuilder, ButtonBuilder } from "@discordjs/builders";
 
 async function fetchColor(imageURL: string): Promise<string> {
   const endpoint = process.env.COLOR_API_ENDPOINT as string;
@@ -38,9 +39,8 @@ export default async function registerPic(client: ExtendedClient, message: Messa
 
   // Send embed preview
   const embed = await client.getText("events.messageCreate.registerPic.loading");
-  await embed
-    .setFooter({ text: fileName })
-    .setImage(`attachment://${fileName}`);
+  embed.footer = { text: fileName };
+  embed.image = { url: `attachment://${fileName}` };
   const picMsg = await (message.channel as TextChannel).send({ embeds: [embed], files: [attachment] });
 
   // Get and set dominant color
@@ -54,27 +54,45 @@ export default async function registerPic(client: ExtendedClient, message: Messa
     client.log(`Failed to fetch color for ${fileName}`, "warn")
   }
 
+  // Get title, description and date
+  // TODO: get title, description and date
+  embed.title = "Title";
+  embed.description = "Description";
+  embed.timestamp = new Date().toISOString();
+
+  // Edit embed
+  await picMsg.edit({ embeds: [embed] });
+
   // Fetch new image URL
   let newURL = "";
   await picMsg.fetch().then((msg) => {
     newURL = msg.embeds[0].image?.url as string;
   });
-  embed.setImage(newURL);
-
-  // Get title, description and date
-  // TODO: get title, description and date
-
-  // Edit embed
-  await picMsg.edit({ embeds: [embed] });
-
+  embed.image = { url: newURL };
 
   // Save as JSON
-  // TODO: save as JSON
+  client.log(`Saving JSON data for ${fileName}...`, "loading");
+  const json = JSON.stringify(embed, null, 2);
+  const jsonPath = `../${process.env.EMBEDS_DIR}/${fileName}.json`;
+  try {
+    await client.editFile(jsonPath, json);
+    client.log(`Saved JSON data for ${fileName}`, "success");
+  } catch (error) {
+    console.error(error);
+    client.log(`Failed to save JSON data for ${fileName}`, "error");
+  }  
 
-  // Add buttons
+  // Embed content & raw content preview // TODO: Remove
+  await (message.channel as TextChannel).send({
+    content: `\`\`\`json\n${JSON.stringify(embed, null, 2)}\n\`\`\``,
+    embeds: [embed],
+  });
+
+  // Add components
   // TODO: Add buttons
   // const components = await client.getComponents("picture");
-  // await picMsg.edit({ embeds: [embed], components: [components] });
+  const row = new ActionRowBuilder<ButtonBuilder>();
+  await picMsg.edit({ components: [row] });
 
   // Delete original message
   await message.delete();

@@ -88,6 +88,7 @@ export class ExtendedClient extends Client {
   getText = async (textId: string) => (await this.importFile(`${__dirname}/../bin/GetText.ts`))(textId);
   autoReply = async (message: Message, reply: ReplyType, defaultChance: number) => (await this.importFile(`${__dirname}/../bin/AutoReply.ts`))(message, reply, defaultChance);
   registerPic = async (message: Message, picUrl: string, fileName: string, attachment: Attachment) => (await this.importFile(`${__dirname}/../bin/RegisterPic.ts`))(this, message, picUrl, fileName, attachment);
+  editFile = async (filePath: string, data: any) => (await this.importFile(`${__dirname}/../bin/EditFile.ts`))(filePath, data);
 
   async registerCommands({ commands, guildId }: RegisterCommandOptions) {
     if (guildId) {
