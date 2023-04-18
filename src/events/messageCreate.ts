@@ -15,10 +15,11 @@ export default new Event("messageCreate", async (message) => {
 
       const [type, ext] = attachment.contentType.split("/");
 
-      if (type !== "image") return;
+      // Filter out non-static images
+      if (type !== "image" || !["png", "jpg", "jpeg", "webp"].includes(ext)) return;
 
       const name = attachment.name.split(".").slice(0, -1).join(".");
-      await client.registerPic(message, attachment.url, `${name}.${ext}`);
+      await client.registerPic(message, attachment.url, `${name}.${ext}`, attachment);
     });
   }
 });
