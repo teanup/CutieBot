@@ -1,6 +1,6 @@
-export default async function getText(textId: string): Promise<object> {
-  const textPath = `${__dirname}/../texts/${textId.replace(/\./g, "/")}.json`;
-  const contentPromise = await import(textPath);
+export default async function getEmbed(embedId: string): Promise<object> {
+  const embedPath = `${__dirname}/../${embedId.replace(/\./g, "/")}.json`;
+  const contentPromise = await import(embedPath);
   const content = JSON.stringify(contentPromise.default);
   const copy = JSON.parse(content);
 

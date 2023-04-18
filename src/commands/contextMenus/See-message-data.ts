@@ -17,7 +17,7 @@ export default new MessageContextMenuCommand({
     // Get content data
     const contentData = message.content;
     if (contentData) {
-      const embedContent = await client.getText("commands.contextMenus.see-message-data.content");
+      const embedContent = await client.getEmbed("texts.commands.contextMenus.see-message-data.content");
       // Edit embed
       embedContent.description = embedContent.description
         .replace("${contentData}", contentData.replace(/`/g, "\\`"));
@@ -29,7 +29,7 @@ export default new MessageContextMenuCommand({
     // Get components data
     await Promise.all(message.components.map(async (component, index) => {
       const componentData = component.toJSON()
-      const embedComponent = await client.getText("commands.contextMenus.see-message-data.component");
+      const embedComponent = await client.getEmbed("texts.commands.contextMenus.see-message-data.component");
       // Edit embed
       embedComponent.title = embedComponent.title
         .replace("${index}", index + 1);
@@ -43,7 +43,7 @@ export default new MessageContextMenuCommand({
     // Get attachments data
     await Promise.all(message.attachments.map(async (attachment) => {
       const attachmentData = attachment.toJSON();
-      const embedAttachment = await client.getText("commands.contextMenus.see-message-data.attachment");
+      const embedAttachment = await client.getEmbed("texts.commands.contextMenus.see-message-data.attachment");
       // Edit embed
       embedAttachment.title = embedAttachment.title
         .replace("${name}", attachment.name);
@@ -57,7 +57,7 @@ export default new MessageContextMenuCommand({
     // Get embeds data
     await Promise.all(message.embeds.map(async (embed, index) => {
       const embedData = embed.toJSON();
-      const embedEmbed = await client.getText("commands.contextMenus.see-message-data.embed");
+      const embedEmbed = await client.getEmbed("texts.commands.contextMenus.see-message-data.embed");
       // Edit embed
       embedEmbed.title = embedEmbed.title
         .replace("${index}", index + 1);
@@ -70,7 +70,7 @@ export default new MessageContextMenuCommand({
 
     // No data
     if (!embeds.length) {
-      const embedNone = await client.getText("commands.contextMenus.see-message-data.no-data");
+      const embedNone = await client.getEmbed("texts.commands.contextMenus.see-message-data.no-data");
       embedNone.author.url = messageURL;
       // Push embed
       embeds.push(embedNone);

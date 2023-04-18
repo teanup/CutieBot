@@ -85,10 +85,10 @@ export class ExtendedClient extends Client {
   setCronJobs = async () => (await this.importFile(`${__dirname}/../bin/SetCronJobs.ts`))(this);
   getComponents = async (messageId: string) => (await this.importFile(`${__dirname}/../bin/GetComponents.ts`))(messageId);
   getMessageData = async (messageId: string) => (await this.importFile(`${__dirname}/../bin/GetMessageData.ts`))(this, messageId);
-  getText = async (textId: string) => (await this.importFile(`${__dirname}/../bin/GetText.ts`))(textId);
+  getEmbed = async (embedId: string) => (await this.importFile(`${__dirname}/../bin/GetEmbed.ts`))(embedId);
+  editFile = async (filePath: string, data: any) => (await this.importFile(`${__dirname}/../bin/EditFile.ts`))(filePath, data);
   autoReply = async (message: Message, reply: ReplyType, defaultChance: number) => (await this.importFile(`${__dirname}/../bin/AutoReply.ts`))(message, reply, defaultChance);
   registerPic = async (message: Message, picUrl: string, fileName: string, attachment: Attachment) => (await this.importFile(`${__dirname}/../bin/RegisterPic.ts`))(this, message, picUrl, fileName, attachment);
-  editFile = async (filePath: string, data: any) => (await this.importFile(`${__dirname}/../bin/EditFile.ts`))(filePath, data);
 
   async registerCommands({ commands, guildId }: RegisterCommandOptions) {
     if (guildId) {

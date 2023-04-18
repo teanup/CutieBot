@@ -11,7 +11,7 @@ export default new Event("interactionCreate", async (interaction) => {
     const command = client.commands.get(interaction.commandName);
     if (!command) {
       client.log(`Unknown command ${interaction.commandName} by ${interaction.user.tag} [${interaction.user.id}]`, "warn");
-      const embedUnknown = await client.getText("common.unknown.command");
+      const embedUnknown = await client.getEmbed("texts.common.unknown.command");
       await interaction.reply({ embeds: [embedUnknown], ephemeral: true });
       return;
     };
@@ -26,7 +26,7 @@ export default new Event("interactionCreate", async (interaction) => {
     catch (error) {
       client.log(`Error occured while executing command ${interaction.commandName} by ${interaction.user.tag} [${interaction.user.id}]`, "error");
       console.error(error);
-      const embedError = await client.getText("common.error.command");
+      const embedError = await client.getEmbed("texts.common.error.command");
       await interaction.reply({ embeds: [embedError], ephemeral: true });
     }
 
@@ -38,7 +38,7 @@ export default new Event("interactionCreate", async (interaction) => {
     const contextMenu = client.commands.get(interaction.commandName);
     if (!contextMenu) {
       client.log(`Unknown context menu ${interaction.commandName} by ${interaction.user.tag} [${interaction.user.id}]`, "warn");
-      const embedUnknown = await client.getText("common.unknown.contextMenu");
+      const embedUnknown = await client.getEmbed("texts.common.unknown.contextMenu");
       await interaction.reply({ embeds: [embedUnknown], ephemeral: true });
       return;
     };
@@ -53,7 +53,7 @@ export default new Event("interactionCreate", async (interaction) => {
     catch (error) {
       client.log(`Error occured while using context menu ${interaction.commandName} by ${interaction.user.tag} [${interaction.user.id}]`, "error");
       console.error(error);
-      const embedError = await client.getText("common.error.contextMenu");
+      const embedError = await client.getEmbed("texts.common.error.contextMenu");
       await interaction.reply({ embeds: [embedError], ephemeral: true });
     }
 
@@ -65,7 +65,7 @@ export default new Event("interactionCreate", async (interaction) => {
     const button = client.buttons.get(interaction.customId);
     if (!button) {
       client.log(`Unknown button ${interaction.customId} by ${interaction.user.tag} [${interaction.user.id}]`, "warn");
-      const embedUnknown = await client.getText("common.unknown.button");
+      const embedUnknown = await client.getEmbed("texts.common.unknown.button");
       await interaction.reply({ embeds: [embedUnknown], ephemeral: true });
       return;
     };
@@ -79,7 +79,7 @@ export default new Event("interactionCreate", async (interaction) => {
     catch (error) {
       client.log(`Error occured while using button ${interaction.customId} by ${interaction.user.tag} [${interaction.user.id}]`, "error");
       console.error(error);
-      const embedError = await client.getText("common.error.button");
+      const embedError = await client.getEmbed("texts.common.error.button");
       await interaction.reply({ embeds: [embedError], ephemeral: true });
     }
 
@@ -91,7 +91,7 @@ export default new Event("interactionCreate", async (interaction) => {
     const selectMenu = client.selectMenus.get(interaction.customId);
     if (!selectMenu) {
       client.log(`Unknown select menu ${interaction.customId} by ${interaction.user.tag} [${interaction.user.id}]`, "warn");
-      const embedUnknown = await client.getText("common.unknown.selectMenu");
+      const embedUnknown = await client.getEmbed("texts.common.unknown.selectMenu");
       await interaction.reply({ embeds: [embedUnknown], ephemeral: true });
       return;
     };
@@ -105,7 +105,7 @@ export default new Event("interactionCreate", async (interaction) => {
     catch (error) {
       client.log(`Error occured while using select menu ${interaction.customId} by ${interaction.user.tag} [${interaction.user.id}]`, "error");
       console.error(error);
-      const embedError = await client.getText("common.error.selectMenu");
+      const embedError = await client.getEmbed("texts.common.error.selectMenu");
       await interaction.reply({ embeds: [embedError], ephemeral: true });
     }
 

@@ -38,7 +38,7 @@ export default async function registerPic(client: ExtendedClient, message: Messa
   client.log(`Registering ${fileName}...`, "loading");
 
   // Send embed preview
-  const embed = await client.getText("events.messageCreate.registerPic.loading");
+  const embed = await client.getEmbed("texts.events.messageCreate.registerPic.loading");
   embed.footer = { text: fileName };
   embed.image = { url: `attachment://${fileName}` };
   const picMsg = await (message.channel as TextChannel).send({ embeds: [embed], files: [attachment] });
@@ -91,8 +91,8 @@ export default async function registerPic(client: ExtendedClient, message: Messa
   // Add components
   // TODO: Add buttons
   // const components = await client.getComponents("picture");
-  const row = new ActionRowBuilder<ButtonBuilder>();
-  await picMsg.edit({ components: [row] });
+  // const row = new ActionRowBuilder<ButtonBuilder>();
+  // await picMsg.edit({ components: [row] });
 
   // Delete original message
   await message.delete();
