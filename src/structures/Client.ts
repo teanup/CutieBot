@@ -1,4 +1,4 @@
-import { ApplicationCommandDataResolvable, Client, ClientEvents, Collection, Message } from "discord.js";
+import { ApplicationCommandDataResolvable, Attachment, Client, ClientEvents, Collection, Message } from "discord.js";
 import { glob } from "glob";
 import { Event } from "./Event";
 import { RegisterCommandOptions, ReplyType } from "../typings/Client";
@@ -87,7 +87,7 @@ export class ExtendedClient extends Client {
   getMessageData = async (messageId: string) => (await this.importFile(`${__dirname}/../bin/GetMessageData.ts`))(this, messageId);
   getText = async (textId: string) => (await this.importFile(`${__dirname}/../bin/GetText.ts`))(textId);
   autoReply = async (message: Message, reply: ReplyType, defaultChance: number) => (await this.importFile(`${__dirname}/../bin/AutoReply.ts`))(message, reply, defaultChance);
-  registerPic = async (message: Message, picUrl: string, fileName: string) => (await this.importFile(`${__dirname}/../bin/RegisterPic.ts`))(message, picUrl, fileName);
+  registerPic = async (message: Message, picUrl: string, fileName: string, attachment: Attachment) => (await this.importFile(`${__dirname}/../bin/RegisterPic.ts`))(this, message, picUrl, fileName, attachment);
 
   async registerCommands({ commands, guildId }: RegisterCommandOptions) {
     if (guildId) {

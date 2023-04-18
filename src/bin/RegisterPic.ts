@@ -1,58 +1,83 @@
-import { Attachment, AttachmentBuilder, EmbedBuilder, Message } from "discord.js";
+import { Attachment, AttachmentBuilder, EmbedBuilder, Message, TextChannel } from "discord.js";
+import { ExtendedClient } from "src/structures/Client";
 import { promises, unlink } from "fs";
 
-async function downloadImage(url: string, path: string): Promise<void> {
-  const response = await fetch(url);
-  const blob = await response.blob();
-  const arrayBuffer = await blob.arrayBuffer();
-  const buffer = Buffer.from(arrayBuffer);
-  await promises.writeFile(path, buffer);
+async function fetchColor(imageURL: string): Promise<string> {
+  const endpoint = process.env.COLOR_API_ENDPOINT as string;
+  const auth = process.env.COLOR_API_AUTH as string;
+  const queryParams = new URLSearchParams({
+    image_url: imageURL,
+    extract_overall_colors: "1",
+    extract_object_colors: "0",
+    overall_count: "1",
+    separated_count: "1",
+    deterministic: "0",
+  });
+
+  // Fetch color from API
+  const fetchURL = `${endpoint}?${queryParams.toString()}`;
+
+  const response = await fetch(fetchURL, {
+    headers: {
+      "Authorization": auth,
+    },
+  });
+  const data = await response.json();
+
+  // Parse color
+  try {
+    const color = await data.result.colors.image_colors[0].html_code;
+    return color;
+  } catch (error) {
+    return ""
+  }
 }
 
-export default async function registerPic(message: Message, picUrl: string, fileName: string): Promise<void> {
-  const loading = process.env.LOADING_EMOJIS as string;
+export default async function registerPic(client: ExtendedClient, message: Message, picUrl: string, fileName: string, attachment: Attachment): Promise<void> {
+  client.log(`Registering ${fileName}...`, "loading");
 
-  // Download image
-  const reply = await message.reply(`${loading}  Downloading image...`);
-  const downloadPath = `${__dirname}/../${process.env.DOWNLOAD_DIR}/${fileName}`;
-  await downloadImage(picUrl, downloadPath);
-
-  // Build embed
-  await reply.edit(`${loading}  Building embed...`);
-  const embed = new EmbedBuilder()
-    .setTitle(" ")
-    .setDescription(" ")
+  // Send embed preview
+  const embed = await client.getText("events.messageCreate.registerPic.loading");
+  await embed
     .setFooter({ text: fileName })
     .setImage(`attachment://${fileName}`);
-  // Get date from EXIF data
-  // TODO: Get date from EXIF data
-  embed.setTimestamp(new Date());
-  // Get main color
-  // TODO: Get main color from image
-  const mainColor = 0x88ccaa;
-  embed.setColor(mainColor);
+  const picMsg = await (message.channel as TextChannel).send({ embeds: [embed], files: [attachment] });
 
-  // Send embed
-  await reply.edit(`${loading}  Sending embed...`);
-  const attachment = new AttachmentBuilder(downloadPath)
-    .setName(fileName);
-  const sent = await message.channel.send({ embeds: [embed], files: [attachment] });
-  await reply.delete();
+  // Get and set dominant color
+  client.log(`Fetching color for ${fileName}...`, "loading");
+  const mainColor = "" as string;  // await fetchColor(picUrl);
+  if (mainColor !== "") {
+    const mainColorHex = parseInt(mainColor.replace("#", "0x"));
+    client.log(`Fetched color ${mainColor} for ${fileName}`, "success");
+    embed.setColor(mainColorHex);
+  } else {
+    client.log(`Failed to fetch color for ${fileName}`, "warn")
+  }
 
-  // Delete image
-  unlink(downloadPath, (err) => {});
-
-  // Generate duplicable embed
+  // Fetch new image URL
   let newURL = "";
-  sent.attachments.map((attachment: Attachment) => {
-    newURL = attachment.url;
+  await picMsg.fetch().then((msg) => {
+    newURL = msg.embeds[0].image?.url as string;
   });
   embed.setImage(newURL);
+
+  // Get title, description and date
+  // TODO: get title, description and date
+
+  // Edit embed
+  await picMsg.edit({ embeds: [embed] });
+
+
+  // Save as JSON
   // TODO: save as JSON
 
   // Add buttons
   // TODO: Add buttons
   // const components = await client.getComponents("picture");
-  // await sent.edit({ embeds: [embed], components: [components] });
-  // TODO: check if attachment stays with message even with embed image not referencing it
+  // await picMsg.edit({ embeds: [embed], components: [components] });
+
+  // Delete original message
+  await message.delete();
+
+  client.log(`Registered ${fileName}`, "info");
 }
