@@ -1,0 +1,21 @@
+{
+  "title": "Pong !  :ping_pong:",
+  "color": "cc4422",
+  "fields": [
+    {
+      "name": "Bot Ping",
+      "value": "${latency} ms  ${emoji}",
+      "inline": true
+    },
+    {
+      "name": "\u200B",
+      "value": "\u200B",
+      "inline": true
+    },
+    {
+      "name": "API Latency",
+      "value": "${APILatency} ms  ${APIEmoji}",
+      "inline": true
+    }
+  ]
+}
