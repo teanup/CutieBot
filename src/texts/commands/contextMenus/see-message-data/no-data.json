@@ -1,0 +1,11 @@
+{
+  "color": "eecc44",
+  "title": "No data found",
+  "description": ":warning:  No data was found in this message",
+  "author": {
+    "name": "View message"
+  },
+  "footer": {
+    "text": "Please contact peanut#4445 if you think this is a mistake"
+  }
+}

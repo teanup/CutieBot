@@ -1,0 +1,8 @@
+{
+  "color": "9977ee",
+  "title": "Component #${index}",
+  "description": "```${componentData}```",
+  "author": {
+    "name": "View message"
+  }
+}

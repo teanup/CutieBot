@@ -1,9 +1,0 @@
-{
-  "color": "5868f0",
-  "title": "JSON Embed #${index}",
-  "description": "```${embedData}```",
-  "author": {
-    "name": "View message",
-    "url": "https://discord.com/channels/${guildId}/${channelId}/${messageId}"
-  }
-}

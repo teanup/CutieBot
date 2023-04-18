@@ -1,0 +1,8 @@
+{
+  "color": "dd6688",
+  "title": "Attachment (${name})",
+  "description": "```${attachmentData}```",
+  "author": {
+    "name": "View message"
+  }
+}

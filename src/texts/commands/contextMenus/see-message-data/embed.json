@@ -1,0 +1,8 @@
+{
+  "color": "66dd99",
+  "title": "Embed #${index}",
+  "description": "```${embedData}```",
+  "author": {
+    "name": "View message"
+  }
+}
