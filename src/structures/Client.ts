@@ -19,7 +19,9 @@ export class ExtendedClient extends Client {
 
   replies: Collection<string, ReplyType> = new Collection();
 
-  picChannelId = process.env.CHANNEL_PICTURES as string;
+  picChannelId = process.env.PIC_CHANNEL as string;
+  picEmbedsDir = process.env.PIC_EMBEDS_DIR as string;
+  picEmbedsDelDir = process.env.PIC_EMBEDS_DEL_DIR as string;
 
   constructor() {
     super({ intents: ["Guilds", "GuildMessages", "GuildMembers", "GuildMessageReactions", "MessageContent"] });
@@ -86,8 +88,8 @@ export class ExtendedClient extends Client {
   setCronJobs = async () => (await this.importFile(`${__dirname}/../bin/SetCronJobs.ts`))(this);
   getComponents = async (messageId: string) => (await this.importFile(`${__dirname}/../bin/GetComponents.ts`))(messageId);
   getMessageData = async (messageId: string) => (await this.importFile(`${__dirname}/../bin/GetMessageData.ts`))(this, messageId);
-  getEmbed = async (embedId: string) => (await this.importFile(`${__dirname}/../bin/GetEmbed.ts`))(embedId);
-  editFile = async (filePath: string, data: any) => (await this.importFile(`${__dirname}/../bin/EditFile.ts`))(filePath, data);
+  getEmbed = async (embedId: string, pathPrefix?: string) => (await this.importFile(`${__dirname}/../bin/GetEmbed.ts`))(embedId, pathPrefix);
+  editFile = async (data: any, filePath: string, pathPrefix?: string) => (await this.importFile(`${__dirname}/../bin/EditFile.ts`))(data, filePath, pathPrefix);
   autoReply = async (message: Message, reply: ReplyType, defaultChance: number) => (await this.importFile(`${__dirname}/../bin/AutoReply.ts`))(message, reply, defaultChance);
   registerPic = async (picUrl: string, fileName: string, attachment: Attachment, options: RegisterPicOptions) => (await this.importFile(`${__dirname}/../bin/RegisterPic.ts`))(this, picUrl, fileName, attachment, options);
 
