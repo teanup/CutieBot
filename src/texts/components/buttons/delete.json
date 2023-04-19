@@ -1,0 +1,5 @@
+{
+  "color": "882244",
+  "title": "Delete ${fileName}?",
+  "description": "Are you sure you want to delete this picture?\n\nYou will be able to restore it [from this message](${originalURL})."
+}
