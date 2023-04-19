@@ -3,12 +3,31 @@ import { Event } from "../structures/Event";
 import { RegisterPicOptions } from "../bin/RegisterPic";
 
 async function parsePicOptions(messageContent: string): Promise<RegisterPicOptions> {
+  const lines = messageContent.split("\n");
   const options: RegisterPicOptions = {
     title: "",
     description: "",
     date: "",
     location: ""
   };
+
+  // Parsers for each option, allows loose matching
+  const regexParsers = {
+    title: /^t[itle]{1,6}[ :]+/i,
+    description: /^de[scription]{0,11}[ :]+/i,
+    date: /^da[te]{0,4}[ :]+/i,
+    location: /^l[ocation]{1,9}[ :]+/i
+  } as { [key in keyof RegisterPicOptions]: RegExp };
+
+  // Parse options
+  lines.forEach((line) => {
+    for (const [option, regex] of Object.entries(regexParsers)) {
+      if (regex.test(line)) {
+        const value = line.replace(regex, "");
+        options[option as keyof RegisterPicOptions] = value;
+      }
+    }
+  });
 
   return options;
 }
@@ -30,6 +49,7 @@ export default new Event("messageCreate", async (message) => {
       // Filter out non-static images
       if (type !== "image" || !["png", "jpg", "jpeg", "webp"].includes(ext)) return;
 
+    // Set correct file extension
       const name = attachment.name.split(".").slice(0, -1).join(".");
       const fileName = `${name}.${ext}`;
 
@@ -43,7 +63,8 @@ export default new Event("messageCreate", async (message) => {
         client.log(`Failed to register picture ${fileName}`, "error");
         const embedError = await client.getEmbed("texts.events.messageCreate.registerPic.error");
         embedError.description = embedError.description
-          .replace("${fileName}", fileName);
+          .replace("${fileName}", fileName)
+          .replace("${error}", error);
         await message.channel.send({ embeds: [embedError] });
       }
 

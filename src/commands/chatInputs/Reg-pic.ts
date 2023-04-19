@@ -46,18 +46,20 @@ export default new ChatInputCommand({
     }
 
     if (!attachment) {
-      const embedNoPic = await client.getEmbed("texts.commands.chatInput.regPic.noPic");
+      const embedNoPic = await client.getEmbed("texts.commands.chatInputs.reg-pic.no-pic");
       await interaction.reply({ embeds: [embedNoPic], ephemeral: true });
       return;
     }
 
-    if (!attachment.contentType) return;
-
-    const [type, ext] = attachment.contentType.split("/");
-
     // Filter out non-static images
-    if (type !== "image" || !["png", "jpg", "jpeg", "webp"].includes(ext)) return;
+    const [type, ext] = (attachment.contentType || "").split("/");
+    if (type !== "image" || !["png", "jpg", "jpeg", "webp"].includes(ext)) {
+      const embedBadFormat = await client.getEmbed("texts.commands.chatInputs.reg-pic.bad-format");
+      await interaction.reply({ embeds: [embedBadFormat], ephemeral: true });
+      return;
+    }
 
+    // Set correct file extension
     const name = attachment.name.split(".").slice(0, -1).join(".");
     const fileName = `${name}.${ext}`;
 
