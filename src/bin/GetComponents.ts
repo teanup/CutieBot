@@ -1,20 +1,20 @@
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle, StringSelectMenuBuilder, StringSelectMenuOptionBuilder } from "discord.js";
 
-export default async function getComponents(componentsName: string): Promise<ActionRowBuilder[]> {
+export default async function getComponents(componentsName: string, appendId?: string): Promise<ActionRowBuilder[]> {
   let rows = [];
 
   switch (componentsName) {
-    case "pingroles":
-      const minecraftButton = new ButtonBuilder()
-        .setCustomId("minecraft-role")
-        .setEmoji("⛏️")
-        .setStyle(ButtonStyle.Secondary);
-      const minigamesButton = new ButtonBuilder()
-        .setCustomId("minigames-role")
-        .setEmoji("🎲")
-        .setStyle(ButtonStyle.Secondary);
+    case "picture":
+      const editButton = new ButtonBuilder()
+        .setCustomId(`edit:${appendId}`)
+        .setEmoji("📝") 
+        .setStyle(ButtonStyle.Primary);
+      const deleteButton = new ButtonBuilder()
+        .setCustomId(`delete:${appendId}`)
+        .setEmoji("🗑️")
+        .setStyle(ButtonStyle.Danger);
       rows.push(new ActionRowBuilder<ButtonBuilder>()
-        .addComponents(minecraftButton, minigamesButton));
+        .addComponents(editButton, deleteButton));
       break;
     case "minecraft":
       const helpSelectMenu = new StringSelectMenuBuilder()

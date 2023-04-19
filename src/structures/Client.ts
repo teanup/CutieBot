@@ -86,7 +86,7 @@ export class ExtendedClient extends Client {
   LoadReplies = async () => (await this.importFile(`${__dirname}/../bin/LoadReplies.ts`))(this);
   setPresence = async () => (await this.importFile(`${__dirname}/../bin/SetPresence.ts`))(this);
   setCronJobs = async () => (await this.importFile(`${__dirname}/../bin/SetCronJobs.ts`))(this);
-  getComponents = async (messageId: string) => (await this.importFile(`${__dirname}/../bin/GetComponents.ts`))(messageId);
+  getComponents = async (messageId: string, appendId?: string) => (await this.importFile(`${__dirname}/../bin/GetComponents.ts`))(messageId, appendId);
   getMessageData = async (messageId: string) => (await this.importFile(`${__dirname}/../bin/GetMessageData.ts`))(this, messageId);
   getEmbed = async (embedId: string, pathPrefix?: string) => (await this.importFile(`${__dirname}/../bin/GetEmbed.ts`))(embedId, pathPrefix);
   editFile = async (data: any, filePath: string, pathPrefix?: string) => (await this.importFile(`${__dirname}/../bin/EditFile.ts`))(data, filePath, pathPrefix);

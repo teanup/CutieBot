@@ -151,19 +151,11 @@ export default async function registerPic(client: ExtendedClient, picUrl: string
   } catch (error) {
     console.error(error);
     client.log(`Failed to save JSON data for ${fileName}`, "error");
-  }  
-
-  // Embed content & raw content preview // TODO: Remove
-  await picChannel.send({
-    content: `\`\`\`json\n${jsonData}\n\`\`\``,
-    embeds: [embed],
-  });
+  }
 
   // Add components
-  // TODO: Add buttons
-  // const components = await client.getComponents("picture");
-  // const row = new ActionRowBuilder<ButtonBuilder>();
-  // await picMsg.edit({ components: [row] });
+  const components = await client.getComponents("picture", picMsg.id);
+  await picMsg.edit({ components });
 
   client.log(`Registered ${fileName}`, "info");
 }
