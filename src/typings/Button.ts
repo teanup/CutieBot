@@ -3,6 +3,7 @@ import { ExtendedClient } from "../structures/Client";
 
 export interface ExtendedButtonInteraction extends ButtonInteraction {
   member: GuildMember;
+  picMessageId?: string;
 }
 
 interface RunOptions {

@@ -62,22 +62,25 @@ export default new Event("interactionCreate", async (interaction) => {
 
   // Buttons
   if (interaction.isButton()) {
-    const button = client.buttons.get(interaction.customId);
+    const [customId, picMessageId] = interaction.customId.split(":");
+
+    const button = client.buttons.get(customId);
     if (!button) {
-      client.log(`Unknown button ${interaction.customId} by ${interaction.user.tag} [${interaction.user.id}]`, "warn");
+      client.log(`Unknown button ${customId} by ${interaction.user.tag} [${interaction.user.id}]`, "warn");
       const embedUnknown = await client.getEmbed("texts.common.unknown.button");
       await interaction.reply({ embeds: [embedUnknown], ephemeral: true });
       return;
     };
 
     try {
+      if (picMessageId) (interaction as ExtendedButtonInteraction).picMessageId = picMessageId;
       await button.run({
         client,
         interaction: interaction as ExtendedButtonInteraction
       });
     }
     catch (error) {
-      client.log(`Error occured while using button ${interaction.customId} by ${interaction.user.tag} [${interaction.user.id}]`, "error");
+      client.log(`Error occured while using button ${customId} by ${interaction.user.tag} [${interaction.user.id}]`, "error");
       console.error(error);
       const embedError = await client.getEmbed("texts.common.error.button");
       await interaction.reply({ embeds: [embedError], ephemeral: true });
