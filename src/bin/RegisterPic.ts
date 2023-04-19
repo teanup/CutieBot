@@ -154,7 +154,7 @@ export default async function registerPic(client: ExtendedClient, picUrl: string
   }
 
   // Add components
-  const components = await client.getComponents("picture", picMsg.id);
+  const components = await client.getComponents("picture", `${picMsg.id}:${fileName}`);
   await picMsg.edit({ components });
 
   client.log(`Registered ${fileName}`, "info");

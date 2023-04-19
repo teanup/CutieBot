@@ -9,7 +9,7 @@ export default new Button({
       .replace("${fileName}", interaction.picFileName);
     embedDelete.description = embedDelete.description
       .replace("${originalURL}", originalMessageURL)
-    const components = await client.getComponents("delete", interaction.picMessageId);
+    const components = await client.getComponents("delete", `${interaction.picMessageId}:${interaction.picFileName}`);
 
     // Ask for confirmation
     await interaction.reply({ embeds: [embedDelete], components, ephemeral: true });
