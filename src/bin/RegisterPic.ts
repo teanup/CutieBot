@@ -1,7 +1,5 @@
-import { Attachment, AttachmentBuilder, EmbedAuthorData, EmbedBuilder, Message, TextChannel } from "discord.js";
+import { Attachment, EmbedAuthorData, TextChannel } from "discord.js";
 import { ExtendedClient } from "src/structures/Client";
-import { promises, unlink } from "fs";
-import { ActionRowBuilder, ButtonBuilder } from "@discordjs/builders";
 
 export interface RegisterPicOptions {
   title: string;
@@ -78,9 +76,10 @@ async function fetchLocation(location: string): Promise<EmbedAuthorData> {
 
   // Parse OSM URL
   try {
-    const osm_type = await data[0].osm_type;
-    const osm_id = await data[0].osm_id;
-    const display_name = await data[0].display_name;
+    const res = await data[0];
+    const osm_type = res.osm_type;
+    const osm_id = res.osm_id;
+    const display_name = res.display_name;
 
     // Author data
     const author: EmbedAuthorData = {
@@ -145,10 +144,9 @@ export default async function registerPic(client: ExtendedClient, picUrl: string
 
   // Save as JSON
   client.log(`Saving JSON data for ${fileName}...`, "loading");
-  const json = JSON.stringify(embed, null, 2);
-  const jsonPath = `../${process.env.EMBEDS_DIR}/${fileName}.json`;
+  const jsonData = JSON.stringify(embed, null, 2);
   try {
-    await client.editFile(jsonPath, json);
+    await client.editFile(jsonData, `${picMsg.id}.json`, client.picEmbedsDir);
     client.log(`Saved JSON data for ${fileName}`, "success");
   } catch (error) {
     console.error(error);
@@ -157,7 +155,7 @@ export default async function registerPic(client: ExtendedClient, picUrl: string
 
   // Embed content & raw content preview // TODO: Remove
   await picChannel.send({
-    content: `\`\`\`json\n${JSON.stringify(embed, null, 2)}\n\`\`\``,
+    content: `\`\`\`json\n${jsonData}\n\`\`\``,
     embeds: [embed],
   });
 
