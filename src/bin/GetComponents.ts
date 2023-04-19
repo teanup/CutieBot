@@ -1,20 +1,32 @@
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle, StringSelectMenuBuilder, StringSelectMenuOptionBuilder } from "discord.js";
 
-export default async function getComponents(componentsName: string, appendId?: string): Promise<ActionRowBuilder[]> {
+export default async function getComponents(componentsName: string, appendInfo?: string): Promise<ActionRowBuilder[]> {
   let rows = [];
 
   switch (componentsName) {
     case "picture":
       const editButton = new ButtonBuilder()
-        .setCustomId(`edit:${appendId}`)
+        .setCustomId(`edit:${appendInfo}`)
         .setEmoji("📝") 
         .setStyle(ButtonStyle.Primary);
       const deleteButton = new ButtonBuilder()
-        .setCustomId(`delete:${appendId}`)
+        .setCustomId(`delete:${appendInfo}`)
         .setEmoji("🗑️")
         .setStyle(ButtonStyle.Danger);
       rows.push(new ActionRowBuilder<ButtonBuilder>()
         .addComponents(editButton, deleteButton));
+      break;
+    case "delete":
+      const delCancelButton = new ButtonBuilder()
+        .setCustomId(`delcancel:${appendInfo}`)
+        .setEmoji("❌") 
+        .setStyle(ButtonStyle.Secondary);
+      const delConfirmButton = new ButtonBuilder()
+        .setCustomId(`delconfirm:${appendInfo}`)
+        .setEmoji("🗑️")
+        .setStyle(ButtonStyle.Danger);
+      rows.push(new ActionRowBuilder<ButtonBuilder>()
+        .addComponents(delCancelButton, delConfirmButton));
       break;
     case "minecraft":
       const helpSelectMenu = new StringSelectMenuBuilder()

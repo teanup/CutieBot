@@ -62,7 +62,7 @@ export default new Event("interactionCreate", async (interaction) => {
 
   // Buttons
   if (interaction.isButton()) {
-    const [customId, picMessageId] = interaction.customId.split(":");
+    const [customId, picMessageId, picFileName] = interaction.customId.split(":");
 
     const button = client.buttons.get(customId);
     if (!button) {
@@ -74,6 +74,7 @@ export default new Event("interactionCreate", async (interaction) => {
 
     try {
       if (picMessageId) (interaction as ExtendedButtonInteraction).picMessageId = picMessageId;
+      if (picFileName) (interaction as ExtendedButtonInteraction).picFileName = picFileName;
       await button.run({
         client,
         interaction: interaction as ExtendedButtonInteraction
