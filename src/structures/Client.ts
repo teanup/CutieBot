@@ -5,6 +5,7 @@ import { RegisterCommandOptions, ReplyType } from "../typings/Client";
 import { ExtendedCommandType } from "../typings/Command";
 import { ExtendedButtonType } from "../typings/Button";
 import { ExtendedSelectMenuType } from "../typings/SelectMenu";
+import { RegisterPicOptions } from "../bin/RegisterPic";
 
 export class ExtendedClient extends Client {
   private importedFiles = new Map<string, any>();
@@ -13,12 +14,12 @@ export class ExtendedClient extends Client {
   buttons: Collection<string, ExtendedButtonType> = new Collection();
   selectMenus: Collection<string, ExtendedSelectMenuType> = new Collection();
 
-  clientId = process.env.CLIENT_ID;
+  clientId = process.env.CLIENT_ID as string;
   guildId = process.env.GUILD_ID;
 
   replies: Collection<string, ReplyType> = new Collection();
 
-  picChannelId = process.env.CHANNEL_PICTURES;
+  picChannelId = process.env.CHANNEL_PICTURES as string;
 
   constructor() {
     super({ intents: ["Guilds", "GuildMessages", "GuildMembers", "GuildMessageReactions", "MessageContent"] });
@@ -88,7 +89,7 @@ export class ExtendedClient extends Client {
   getEmbed = async (embedId: string) => (await this.importFile(`${__dirname}/../bin/GetEmbed.ts`))(embedId);
   editFile = async (filePath: string, data: any) => (await this.importFile(`${__dirname}/../bin/EditFile.ts`))(filePath, data);
   autoReply = async (message: Message, reply: ReplyType, defaultChance: number) => (await this.importFile(`${__dirname}/../bin/AutoReply.ts`))(message, reply, defaultChance);
-  registerPic = async (message: Message, picUrl: string, fileName: string, attachment: Attachment) => (await this.importFile(`${__dirname}/../bin/RegisterPic.ts`))(this, message, picUrl, fileName, attachment);
+  registerPic = async (picUrl: string, fileName: string, attachment: Attachment, options: RegisterPicOptions) => (await this.importFile(`${__dirname}/../bin/RegisterPic.ts`))(this, picUrl, fileName, attachment, options);
 
   async registerCommands({ commands, guildId }: RegisterCommandOptions) {
     if (guildId) {

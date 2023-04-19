@@ -3,6 +3,13 @@ import { ExtendedClient } from "src/structures/Client";
 import { promises, unlink } from "fs";
 import { ActionRowBuilder, ButtonBuilder } from "@discordjs/builders";
 
+export interface RegisterPicOptions {
+  title?: string;
+  description?: string;
+  date?: string;
+  location?: string;
+}
+
 async function fetchColor(imageURL: string): Promise<string> {
   const endpoint = process.env.COLOR_API_ENDPOINT as string;
   const auth = process.env.COLOR_API_AUTH as string;
@@ -34,14 +41,16 @@ async function fetchColor(imageURL: string): Promise<string> {
   }
 }
 
-export default async function registerPic(client: ExtendedClient, message: Message, picUrl: string, fileName: string, attachment: Attachment): Promise<void> {
+export default async function registerPic(client: ExtendedClient, picUrl: string, fileName: string, attachment: Attachment, options: RegisterPicOptions): Promise<void> {
   client.log(`Registering ${fileName}...`, "loading");
+  const picChannel = await client.channels.fetch(client.picChannelId) as TextChannel;
 
   // Send embed preview
   const embed = await client.getEmbed("texts.events.messageCreate.registerPic.loading");
   embed.footer = { text: fileName };
   embed.image = { url: `attachment://${fileName}` };
-  const picMsg = await (message.channel as TextChannel).send({ embeds: [embed], files: [attachment] });
+  const picMsg = await picChannel.send({ embeds: [embed], files: [attachment] });
+  
 
   // Get and set dominant color
   client.log(`Fetching color for ${fileName}...`, "loading");
@@ -83,7 +92,7 @@ export default async function registerPic(client: ExtendedClient, message: Messa
   }  
 
   // Embed content & raw content preview // TODO: Remove
-  await (message.channel as TextChannel).send({
+  await picChannel.send({
     content: `\`\`\`json\n${JSON.stringify(embed, null, 2)}\n\`\`\``,
     embeds: [embed],
   });
@@ -93,9 +102,6 @@ export default async function registerPic(client: ExtendedClient, message: Messa
   // const components = await client.getComponents("picture");
   // const row = new ActionRowBuilder<ButtonBuilder>();
   // await picMsg.edit({ components: [row] });
-
-  // Delete original message
-  await message.delete();
 
   client.log(`Registered ${fileName}`, "info");
 }
