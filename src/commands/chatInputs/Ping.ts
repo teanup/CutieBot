@@ -20,7 +20,7 @@ export default new ChatInputCommand({
       return ":snail:";
     };
     
-    const embed = await client.getEmbed("texts.commands.textInputs.ping");
+    const embed = await client.getEmbed("texts.commands.chatInputs.ping");
     embed.fields[0].value = embed.fields[0].value
       .replace("${latency}", latency)
       .replace("${emoji}", emojiPicker(latency));
