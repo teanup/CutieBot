@@ -62,7 +62,19 @@ export default new Event("interactionCreate", async (interaction) => {
 
   // Buttons
   if (interaction.isButton()) {
-    const [customId, picMessageId, picFileName] = interaction.customId.split(":");
+    const customIdData = interaction.customId.split(":");
+    const customId = customIdData[0];
+    let picMessageId: string | undefined;
+    let picFileName: string | undefined;
+    switch (customIdData.length) {
+      case 2:
+        picMessageId = customIdData[1];
+        break;
+      case 3:
+        picMessageId = customIdData[1];
+        picFileName = customIdData[2];
+        break;
+    }
 
     const button = client.buttons.get(customId);
     if (!button) {
