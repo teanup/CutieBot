@@ -19,7 +19,7 @@ export default new Button({
 
     const components = await client.getComponents("picture", `${interaction.picMessageId}:${interaction.picFileName}`);
 
-    await picMessage.edit({ embeds, components });
+    await picMessage.edit({ embeds: [baseEmbed], components });
 
     // Reply to interaction
     const embedRestored = await client.getEmbed("texts.components.buttons.restored");
