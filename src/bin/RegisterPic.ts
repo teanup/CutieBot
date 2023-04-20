@@ -111,7 +111,7 @@ export default async function registerPic(client: ExtendedClient, picUrl: string
   if (mainColor !== "") {
     const mainColorHex = parseInt(mainColor.replace("#", "0x"));
     client.log(`Fetched color ${mainColor} for ${fileName}`, "success");
-    embed.setColor(mainColorHex);
+    embed.color = mainColorHex;
   } else {
     client.log(`Failed to fetch color for ${fileName}`, "warn")
   }

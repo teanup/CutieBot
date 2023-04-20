@@ -1,3 +1,4 @@
+import { EmbedField } from "discord.js";
 import { ChatInputCommand } from "../../structures/ChatInputCommand";
 
 export default new ChatInputCommand({
@@ -21,11 +22,12 @@ export default new ChatInputCommand({
     };
     
     const embed = await client.getEmbed("texts.commands.chatInputs.ping");
+    embed.fields = embed.fields as EmbedField[];
     embed.fields[0].value = embed.fields[0].value
-      .replace("${latency}", latency)
+      .replace("${latency}", `${latency}` )
       .replace("${emoji}", emojiPicker(latency));
     embed.fields[2].value = embed.fields[2].value
-      .replace("${APILatency}", APILatency)
+      .replace("${APILatency}", `${APILatency}`)
       .replace("${APIEmoji}", emojiPicker(APILatency));
 
     await interaction.editReply({

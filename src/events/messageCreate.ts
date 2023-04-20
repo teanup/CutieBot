@@ -62,9 +62,9 @@ export default new Event("messageCreate", async (message) => {
         console.error(error);
         client.log(`Failed to register picture ${fileName}`, "error");
         const embedError = await client.getEmbed("texts.events.messageCreate.registerPic.error");
-        embedError.description = embedError.description
+        embedError.description = (embedError.description as string)
           .replace("${fileName}", fileName)
-          .replace("${error}", error);
+          .replace("${error}", error as string);
         await message.channel.send({ embeds: [embedError] });
       }
 

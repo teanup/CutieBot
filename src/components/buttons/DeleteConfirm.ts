@@ -13,8 +13,8 @@ export default new Button({
     await client.deleteFile(`${interaction.picMessageId}.json`, client.picEmbedsTrashDir);
 
     const embedDelete = await client.getEmbed("texts.components.buttons.deleteconfirm");
-    embedDelete.title = embedDelete.title
-      .replace("${fileName}", interaction.picFileName);
+    embedDelete.title = (embedDelete.title as string)
+      .replace("${fileName}", interaction.picFileName as string);
 
     // Reply to interaction
     await interaction.update({ embeds: [embedDelete], components: [] });

@@ -69,7 +69,7 @@ export default new ChatInputCommand({
       console.error(error);
       client.log(`Failed to register picture ${fileName}`, "error");
       const embedError = await client.getEmbed("texts.events.messageCreate.registerPic.error");
-      embedError.description = embedError.description
+      embedError.description = (embedError.description as string)
         .replace("${fileName}", fileName);
       await interaction.reply({ embeds: [embedError] });
     }
