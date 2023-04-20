@@ -6,8 +6,8 @@ export default async function getEmbed(embedId: string, pathPrefix?: string): Pr
   const content = JSON.stringify(contentPromise.default);
   const copy = JSON.parse(content);
 
-  // Replace color with number
-  if (copy.color) {
+  // Replace color with int
+  if (typeof copy.color === "string") {
     copy.color = parseInt(copy.color, 16);
   }
 
