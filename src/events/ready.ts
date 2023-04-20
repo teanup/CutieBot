@@ -9,4 +9,6 @@ export default new Event("ready", async () => {
   await client.setCronJobs();
   // Load replies
   await client.loadReplies();
+  // Load pics
+  await client.loadPics();
 });

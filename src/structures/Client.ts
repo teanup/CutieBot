@@ -24,10 +24,12 @@ export class ExtendedClient extends Client {
   picChannelId = process.env.PIC_CHANNEL as string;
   picEmbedsDir = process.env.PIC_EMBEDS_DIR as string;
   picEmbedsTrashDir = process.env.PIC_EMBEDS_TRASH_DIR as string;
+  pics: string[] = [];
+  picsTrash: string[] = [];
 
   constructor() {
     super({ intents: ["Guilds", "GuildMessages", "GuildMembers", "GuildMessageReactions", "MessageContent"] });
-  }
+  };
 
   log(message: string, type?: "success" | "error" | "warn" | "info" | "loading") {
     const colorCodes = {
@@ -37,7 +39,7 @@ export class ExtendedClient extends Client {
       green: "\x1b[32m",
       yellow: "\x1b[33m",
       blue: "\x1b[34m",
-    }
+    };
 
     const date = new Date().toLocaleString("en-UK", { timeZone: "Europe/Paris" });
     let logMessage = `[${date}] ${colorCodes.reset}`;
@@ -65,7 +67,7 @@ export class ExtendedClient extends Client {
 
     logMessage += ` ${message}${colorCodes.reset}`;
     console.log(logMessage);
-  }
+  };
 
   async importFile(filePath: string) {
     // Use cache if already imported
@@ -75,17 +77,18 @@ export class ExtendedClient extends Client {
     this.importedFiles.set(filePath, file?.default);
 
     return file?.default;
-  }
+  };
 
   async start() {
     this.log("Starting bot...", "loading");
 
     await this.registerModules();
     await this.login(process.env.TOKEN);
-  }
+  };
 
   // Load methods
   loadReplies = async () => (await this.importFile(`${__dirname}/../bin/LoadReplies.ts`))(this) as Promise<void>;
+  loadPics = async () => (await this.importFile(`${__dirname}/../bin/LoadPics.ts`))(this) as Promise<void>;
   setPresence = async () => (await this.importFile(`${__dirname}/../bin/SetPresence.ts`))(this) as Promise<void>;
   setCronJobs = async () => (await this.importFile(`${__dirname}/../bin/SetCronJobs.ts`))(this) as Promise<void>;
   getMessageComponents = async (messageId: string, appendInfo?: string) => (await this.importFile(`${__dirname}/../bin/GetMessageComponents.ts`))(messageId, appendInfo) as Promise<ActionRowBuilder<MessageActionRowComponentBuilder>[]>;
@@ -109,7 +112,7 @@ export class ExtendedClient extends Client {
       await this.application?.commands.set(commands);
       this.log(`Registered ${commands.length} global commands`, "success");
     }
-  }
+  };
 
   async unregisterCommands({ guildId }: { guildId?: string }) {
     if (guildId) {
@@ -122,7 +125,7 @@ export class ExtendedClient extends Client {
       await this.application?.commands.set([]);
       this.log(`Unregistered global commands`, "success");
     }
-  }
+  };
 
   async registerModules() {
     this.log("Registering modules...", "loading");
@@ -191,5 +194,5 @@ export class ExtendedClient extends Client {
 
       this.on(event.event, event.run);
     });
-  }
+  };
 }
