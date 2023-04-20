@@ -68,6 +68,8 @@ export default new Event("interactionCreate", async (interaction) => {
     let picMessageId: string | undefined;
     let picFileName: string | undefined;
     switch (customIdData.length) {
+      case 1:
+        break;
       case 2:
         picMessageId = customIdData[1];
         break;
@@ -75,6 +77,9 @@ export default new Event("interactionCreate", async (interaction) => {
         picMessageId = customIdData[1];
         picFileName = customIdData[2];
         break;
+      default:
+        picMessageId = customIdData[-2];
+        picFileName = customIdData[-1];
     }
 
     const button = client.buttons.get(customId);
@@ -136,6 +141,8 @@ export default new Event("interactionCreate", async (interaction) => {
     let picMessageId: string | undefined;
     let picFileName: string | undefined;
     switch (customIdData.length) {
+      case 1:
+        break;
       case 2:
         picMessageId = customIdData[1];
         break;
@@ -143,6 +150,9 @@ export default new Event("interactionCreate", async (interaction) => {
         picMessageId = customIdData[1];
         picFileName = customIdData[2];
         break;
+      default:
+        picMessageId = customIdData[-2];
+        picFileName = customIdData[-1];
     }
 
     const modal = client.modals.get(customId);

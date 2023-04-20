@@ -7,6 +7,8 @@ export default new Button({
     // Move embed file
     const embedFileName = `${interaction.picMessageId}.json`;
     await client.moveFile(embedFileName, embedFileName, client.picEmbedsTrashDir, client.picEmbedsDir);
+    client.picIdsTrash = client.picIdsTrash.filter((id) => id !== interaction.picMessageId);
+    client.picIds.push(interaction.picMessageId as string);
 
     // Edit original message
     const picChannel = client.channels.cache.get(client.picChannelId) as TextChannel;

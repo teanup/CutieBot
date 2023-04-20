@@ -1,17 +1,15 @@
 import { ActionRowBuilder, ModalActionRowComponentBuilder, TextInputBuilder, TextInputStyle } from "discord.js";
-import { RegisterPicOptions } from "./RegisterPic";
+import { PicOptions } from "../bin/SetPic";
 
-export default async function getModalComponents(componentsName: string, appendInfo?: string, inputDefaultData?: RegisterPicOptions): Promise<ActionRowBuilder<ModalActionRowComponentBuilder>[]> {
+export default async function getModalComponents(componentsName: string, appendInfo?: string, inputDefaultData?: PicOptions): Promise<ActionRowBuilder<ModalActionRowComponentBuilder>[]> {
   let rows = [];
 
   switch (componentsName) {
     case "edit":
       const title = inputDefaultData?.title || "";
       const description = inputDefaultData?.description || "";
-      const timestamp = inputDefaultData?.date || "";
+      const date = inputDefaultData?.date || "";
       const location = inputDefaultData?.location || "";
-
-      const date = timestamp.split("T")[0];
 
       const titleInput = new TextInputBuilder()
         .setCustomId(`edit-title`)

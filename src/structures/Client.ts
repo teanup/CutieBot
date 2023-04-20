@@ -1,4 +1,4 @@
-import { APIEmbed, ActionRowBuilder, ApplicationCommandDataResolvable, Attachment, BaseMessageOptions, Client, ClientEvents, Collection, Message, MessageActionRowComponentBuilder, ModalActionRowComponentBuilder } from "discord.js";
+import { APIEmbed, ActionRowBuilder, ApplicationCommandDataResolvable, Attachment, Client, ClientEvents, Collection, Message, MessageActionRowComponentBuilder, ModalActionRowComponentBuilder } from "discord.js";
 import { glob } from "glob";
 import { Event } from "./Event";
 import { RegisterCommandOptions, ReplyType } from "../typings/Client";
@@ -6,7 +6,7 @@ import { ExtendedCommandType } from "../typings/Command";
 import { ExtendedButtonType } from "../typings/Button";
 import { ExtendedSelectMenuType } from "../typings/SelectMenu";
 import { ExtendedModalType } from "../typings/Modal";
-import { RegisterPicOptions } from "../bin/RegisterPic";
+import { PicOptions } from "../bin/SetPic";
 
 export class ExtendedClient extends Client {
   private importedFiles = new Map<string, any>();
@@ -24,8 +24,10 @@ export class ExtendedClient extends Client {
   picChannelId = process.env.PIC_CHANNEL as string;
   picEmbedsDir = process.env.PIC_EMBEDS_DIR as string;
   picEmbedsTrashDir = process.env.PIC_EMBEDS_TRASH_DIR as string;
-  pics: string[] = [];
-  picsTrash: string[] = [];
+  picFileNamesPath = process.env.PIC_FILENAMES as string;
+  picIds: string[] = [];
+  picIdsTrash: string[] = [];
+  picFileNames: Collection<string, string> = new Collection();
 
   constructor() {
     super({ intents: ["Guilds", "GuildMessages", "GuildMembers", "GuildMessageReactions", "MessageContent"] });
@@ -41,7 +43,7 @@ export class ExtendedClient extends Client {
       blue: "\x1b[34m",
     };
 
-    const date = new Date().toLocaleString("en-UK", { timeZone: "Europe/Paris" });
+    const date = new Date().toLocaleString("fr-FR", { timeZone: "Europe/Paris" });
     let logMessage = `[${date}] ${colorCodes.reset}`;
 
     switch (type) {
@@ -92,14 +94,14 @@ export class ExtendedClient extends Client {
   setPresence = async () => (await this.importFile(`${__dirname}/../bin/SetPresence.ts`))(this) as Promise<void>;
   setCronJobs = async () => (await this.importFile(`${__dirname}/../bin/SetCronJobs.ts`))(this) as Promise<void>;
   getMessageComponents = async (messageId: string, appendInfo?: string) => (await this.importFile(`${__dirname}/../bin/GetMessageComponents.ts`))(messageId, appendInfo) as Promise<ActionRowBuilder<MessageActionRowComponentBuilder>[]>;
-  getModalComponents = async (messageId: string, appendInfo?: string, inputDefaultData?: RegisterPicOptions) => (await this.importFile(`${__dirname}/../bin/GetModalComponents.ts`))(messageId, appendInfo, inputDefaultData) as Promise<ActionRowBuilder<ModalActionRowComponentBuilder>[]>;
-  getMessageData = async (messageId: string) => (await this.importFile(`${__dirname}/../bin/GetMessageData.ts`))(this, messageId) as Promise<BaseMessageOptions>;
+  getModalComponents = async (messageId: string, appendInfo?: string, inputDefaultData?: PicOptions) => (await this.importFile(`${__dirname}/../bin/GetModalComponents.ts`))(messageId, appendInfo, inputDefaultData) as Promise<ActionRowBuilder<ModalActionRowComponentBuilder>[]>;
   getEmbed = async (embedId: string, pathPrefix?: string) => (await this.importFile(`${__dirname}/../bin/GetEmbed.ts`))(embedId, pathPrefix) as Promise<APIEmbed>;
   editFile = async (data: any, filePath: string, pathPrefix?: string) => (await this.importFile(`${__dirname}/../bin/EditFile.ts`))(data, filePath, pathPrefix) as Promise<void>;
   moveFile = async (filePath: string, newFilePath: string, pathPrefix?: string, newPathPrefix?: string) => (await this.importFile(`${__dirname}/../bin/MoveFile.ts`))(filePath, newFilePath, pathPrefix, newPathPrefix) as Promise<void>;
   deleteFile = async (filePath: string, pathPrefix?: string) => (await this.importFile(`${__dirname}/../bin/DeleteFile.ts`))(this, filePath, pathPrefix) as Promise<void>;
   autoReply = async (message: Message, reply: ReplyType, defaultChance: number) => (await this.importFile(`${__dirname}/../bin/AutoReply.ts`))(message, reply, defaultChance) as Promise<void>;
-  registerPic = async (picUrl: string, fileName: string, attachment: Attachment, options: RegisterPicOptions) => (await this.importFile(`${__dirname}/../bin/RegisterPic.ts`))(this, picUrl, fileName, attachment, options) as Promise<void>;
+  registerPic = async (picUrl: string, fileName: string, attachment: Attachment, options: PicOptions) => (await this.importFile(`${__dirname}/../bin/RegisterPic.ts`))(this, picUrl, fileName, attachment, options) as Promise<void>;
+  setPic = async (picId: string, fileName: string, originalPicMsg: Message, embed: APIEmbed, options: PicOptions) => (await this.importFile(`${__dirname}/../bin/SetPic.ts`))(this, picId, fileName, originalPicMsg, embed, options) as Promise<APIEmbed>;
 
   async registerCommands({ commands, guildId }: RegisterCommandOptions) {
     if (guildId) {
