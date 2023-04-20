@@ -21,7 +21,7 @@ export default new Button({
     embedTrashed.title = (embedTrashed.title as string)
       .replace("${fileName}", interaction.picFileName as string);
 
-    const components = await client.getComponents("trashconfirm", `${interaction.picMessageId}:${interaction.picFileName}`);
+    const components = await client.getMessageComponents("trashconfirm", `${interaction.picMessageId}:${interaction.picFileName}`);
 
     await picMessage.edit({ embeds: [baseEmbed, embedTrashed], components });
 

@@ -9,7 +9,7 @@ export default new Button({
       .replace("${fileName}", interaction.picFileName as string);
       embedTrash.description = (embedTrash.description as string)
       .replace("${originalURL}", originalMessageURL);
-    const components = await client.getComponents("trash", `${interaction.picMessageId}:${interaction.picFileName}`);
+    const components = await client.getMessageComponents("trash", `${interaction.picMessageId}:${interaction.picFileName}`);
 
     // Ask for confirmation
     await interaction.reply({ embeds: [embedTrash], components, ephemeral: true });

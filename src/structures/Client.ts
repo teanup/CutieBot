@@ -1,4 +1,4 @@
-import { APIEmbed, ActionRowBuilder, ApplicationCommandDataResolvable, Attachment, BaseMessageOptions, Client, ClientEvents, Collection, Message, MessageActionRowComponentBuilder } from "discord.js";
+import { APIEmbed, ActionRowBuilder, ApplicationCommandDataResolvable, Attachment, BaseMessageOptions, Client, ClientEvents, Collection, Message, MessageActionRowComponentBuilder, ModalActionRowComponentBuilder } from "discord.js";
 import { glob } from "glob";
 import { Event } from "./Event";
 import { RegisterCommandOptions, ReplyType } from "../typings/Client";
@@ -86,7 +86,8 @@ export class ExtendedClient extends Client {
   loadReplies = async () => (await this.importFile(`${__dirname}/../bin/LoadReplies.ts`))(this) as Promise<void>;
   setPresence = async () => (await this.importFile(`${__dirname}/../bin/SetPresence.ts`))(this) as Promise<void>;
   setCronJobs = async () => (await this.importFile(`${__dirname}/../bin/SetCronJobs.ts`))(this) as Promise<void>;
-  getComponents = async (messageId: string, appendInfo?: string) => (await this.importFile(`${__dirname}/../bin/GetComponents.ts`))(messageId, appendInfo) as Promise<ActionRowBuilder<MessageActionRowComponentBuilder>[]>;
+  getMessageComponents = async (messageId: string, appendInfo?: string) => (await this.importFile(`${__dirname}/../bin/GetMessageComponents.ts`))(messageId, appendInfo) as Promise<ActionRowBuilder<MessageActionRowComponentBuilder>[]>;
+  getModalComponents = async (messageId: string, appendInfo?: string, inputDefaultData?: RegisterPicOptions) => (await this.importFile(`${__dirname}/../bin/GetModalComponents.ts`))(messageId, appendInfo, inputDefaultData) as Promise<ActionRowBuilder<ModalActionRowComponentBuilder>[]>;
   getMessageData = async (messageId: string) => (await this.importFile(`${__dirname}/../bin/GetMessageData.ts`))(this, messageId) as Promise<BaseMessageOptions>;
   getEmbed = async (embedId: string, pathPrefix?: string) => (await this.importFile(`${__dirname}/../bin/GetEmbed.ts`))(embedId, pathPrefix) as Promise<APIEmbed>;
   editFile = async (data: any, filePath: string, pathPrefix?: string) => (await this.importFile(`${__dirname}/../bin/EditFile.ts`))(data, filePath, pathPrefix) as Promise<void>;

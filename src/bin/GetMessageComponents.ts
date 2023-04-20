@@ -1,6 +1,6 @@
-import { ActionRowBuilder, ButtonBuilder, ButtonStyle, MessageActionRowComponentBuilder, StringSelectMenuBuilder, StringSelectMenuOptionBuilder } from "discord.js";
+import { ActionRowBuilder, ButtonBuilder, ButtonStyle, StringSelectMenuBuilder, StringSelectMenuOptionBuilder, MessageActionRowComponentBuilder } from "discord.js";
 
-export default async function getComponents(componentsName: string, appendInfo?: string): Promise<ActionRowBuilder<MessageActionRowComponentBuilder>[]> {
+export default async function getMessageComponents(componentsName: string, appendInfo?: string): Promise<ActionRowBuilder<MessageActionRowComponentBuilder>[]> {
   let rows = [];
 
   switch (componentsName) {
@@ -15,6 +15,7 @@ export default async function getComponents(componentsName: string, appendInfo?:
         .setEmoji("🗑️")
         .setLabel("Trash")
         .setStyle(ButtonStyle.Danger);
+
       rows.push(new ActionRowBuilder<ButtonBuilder>()
         .addComponents(editButton, trashButton));
       break;
@@ -29,6 +30,7 @@ export default async function getComponents(componentsName: string, appendInfo?:
         .setEmoji("🗑️")
         .setLabel("Trash")
         .setStyle(ButtonStyle.Danger);
+
       rows.push(new ActionRowBuilder<ButtonBuilder>()
         .addComponents(trashCancelButton, trashConfirmButton));
       break;
@@ -43,6 +45,7 @@ export default async function getComponents(componentsName: string, appendInfo?:
         .setEmoji("🧹")
         .setLabel("Delete permanently")
         .setStyle(ButtonStyle.Danger);
+
       rows.push(new ActionRowBuilder<ButtonBuilder>()
         .addComponents(restoreButton, delButton));
       break;
@@ -57,9 +60,11 @@ export default async function getComponents(componentsName: string, appendInfo?:
         .setEmoji("🧹")
         .setLabel("Delete permanently")
         .setStyle(ButtonStyle.Danger);
+
       rows.push(new ActionRowBuilder<ButtonBuilder>()
         .addComponents(deleteCancelButton, deleteConfirmButton));
       break;
+
     // case "minecraft":
     //   const helpSelectMenu = new StringSelectMenuBuilder()
     //     .setCustomId("commands-help")

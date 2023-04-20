@@ -17,7 +17,7 @@ export default new Button({
     const baseEmbed = embeds.pop()?.toJSON() as APIEmbed;
     baseEmbed.image = { url: `attachment://${interaction.picFileName}` };
 
-    const components = await client.getComponents("picture", `${interaction.picMessageId}:${interaction.picFileName}`);
+    const components = await client.getMessageComponents("picture", `${interaction.picMessageId}:${interaction.picFileName}`);
 
     await picMessage.edit({ embeds: [baseEmbed], components });
 
