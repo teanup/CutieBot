@@ -1,4 +1,4 @@
-import { TextChannel } from "discord.js";
+import { APIEmbed, TextChannel } from "discord.js";
 import { Button } from "../../structures/Button";
 
 export default new Button({
@@ -13,6 +13,9 @@ export default new Button({
     const picMessage = await picChannel.messages.fetch(interaction.picMessageId as string);
     const embeds = picMessage.embeds;
     embeds.pop();
+    // Fix hidden attachment
+    const baseEmbed = embeds.pop()?.toJSON() as APIEmbed;
+    baseEmbed.image = { url: `attachment://${interaction.picFileName}` };
 
     const components = await client.getComponents("picture", `${interaction.picMessageId}:${interaction.picFileName}`);
 
@@ -20,8 +23,8 @@ export default new Button({
 
     // Reply to interaction
     const embedRestored = await client.getEmbed("texts.components.buttons.restored");
-    embedRestored.title = embedRestored.title
-      .replace("${fileName}", interaction.picFileName);
+    embedRestored.title = (embedRestored.title as string)
+      .replace("${fileName}", interaction.picFileName as string);
 
     await interaction.reply({ embeds: [embedRestored], ephemeral: true });
   }
