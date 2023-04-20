@@ -65,6 +65,7 @@ export default new ChatInputCommand({
     // Set correct file extension
     const name = attachment.name.split(".").slice(0, -1).join(".");
     const fileName = `${name}.${ext}`;
+    attachment.name = fileName;
 
     try {
       await client.registerPic(attachment.url, fileName, attachment, options);

@@ -21,8 +21,8 @@ export default new ChatInputCommand({
     const pic = args.getString("pic");
     if (pic) {
       // Check if pic exists
-      const foundMsgId = client.picFileNames.findKey(fileName => fileName === pic);
-      if (foundMsgId && client.picIds.includes(foundMsgId)) {
+      const foundMsgId = client.picFileNames.findKey((fileName, picId) => (fileName === pic && client.picIds.includes(picId)));
+      if (foundMsgId) {
         picMsgId = foundMsgId;
         appendInfo = `${picMsgId}:${pic}`;
       } else {
@@ -35,7 +35,6 @@ export default new ChatInputCommand({
         });
         return;
       }
-      if ("") { console.log("a")}
     } else {
       // Pick random file
       picMsgId = client.picIds[Math.floor(Math.random() * client.picIds.length)];

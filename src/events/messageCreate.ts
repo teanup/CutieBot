@@ -49,9 +49,10 @@ export default new Event("messageCreate", async (message) => {
       // Filter out non-static images
       if (type !== "image" || !["png", "jpg", "jpeg", "webp"].includes(ext)) return;
 
-    // Set correct file extension
+      // Set correct file extension
       const name = attachment.name.split(".").slice(0, -1).join(".");
       const fileName = `${name}.${ext}`;
+      attachment.name = fileName;
 
       // Parse options
       const options = await parsePicOptions(message.content);
