@@ -1,5 +1,5 @@
 {
-  "color": "882244",
-  "title": "Delete ${fileName}?",
-  "description": "Are you sure you want to delete this picture?\n\nYou will be able to restore it [from this message](${originalURL})."
+  "color": "883344",
+  "title": "Delete ${fileName} permanently?",
+  "description": "Are you sure you want to delete this picture permanently from the album?\n\nThis action cannot be undone."
 }

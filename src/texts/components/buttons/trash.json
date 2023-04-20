@@ -1,0 +1,5 @@
+{
+  "color": "883344",
+  "title": "Trash ${fileName}?",
+  "description": "Are you sure you want to put this picture in the trash?\n\nYou will be able to restore it [from this message](${originalURL})."
+}
