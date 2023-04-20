@@ -1,5 +1,5 @@
 {
-  "color": "883344",
+  "color": "ff8866",
   "title": "Delete ${fileName} permanently?",
   "description": "Are you sure you want to delete this picture permanently from the album?\n\nThis action cannot be undone."
 }

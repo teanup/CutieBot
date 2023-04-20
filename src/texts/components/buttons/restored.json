@@ -1,5 +1,5 @@
 {
-  "color": "aaccaa",
+  "color": "66ff66",
   "title": "Picture ${fileName} restored",
   "description": "This picture can now appear again when using the **`/cute-pic`** command."
 }
