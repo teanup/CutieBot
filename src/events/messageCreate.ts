@@ -1,10 +1,10 @@
 import { client } from "..";
 import { Event } from "../structures/Event";
-import { RegisterPicOptions } from "../bin/RegisterPic";
+import { PicOptions } from "../bin/SetPic";
 
-async function parsePicOptions(messageContent: string): Promise<RegisterPicOptions> {
+async function parsePicOptions(messageContent: string): Promise<PicOptions> {
   const lines = messageContent.split("\n");
-  const options: RegisterPicOptions = {
+  const options: PicOptions = {
     title: "",
     description: "",
     date: "",
@@ -17,14 +17,14 @@ async function parsePicOptions(messageContent: string): Promise<RegisterPicOptio
     description: /^de[scription]{0,11}[ :]+/i,
     date: /^da[te]{0,4}[ :]+/i,
     location: /^l[ocation]{1,9}[ :]+/i
-  } as { [key in keyof RegisterPicOptions]: RegExp };
+  } as { [key in keyof PicOptions]: RegExp };
 
   // Parse options
   lines.forEach((line) => {
     for (const [option, regex] of Object.entries(regexParsers)) {
       if (regex.test(line)) {
         const value = line.replace(regex, "");
-        options[option as keyof RegisterPicOptions] = value;
+        options[option as keyof PicOptions] = value;
       }
     }
   });
