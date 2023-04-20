@@ -21,7 +21,7 @@ export class ExtendedClient extends Client {
 
   picChannelId = process.env.PIC_CHANNEL as string;
   picEmbedsDir = process.env.PIC_EMBEDS_DIR as string;
-  picEmbedsDelDir = process.env.PIC_EMBEDS_DEL_DIR as string;
+  picEmbedsTrashDir = process.env.PIC_EMBEDS_TRASH_DIR as string;
 
   constructor() {
     super({ intents: ["Guilds", "GuildMessages", "GuildMembers", "GuildMessageReactions", "MessageContent"] });
@@ -83,13 +83,15 @@ export class ExtendedClient extends Client {
   }
 
   // Load methods
-  LoadReplies = async () => (await this.importFile(`${__dirname}/../bin/LoadReplies.ts`))(this);
+  loadReplies = async () => (await this.importFile(`${__dirname}/../bin/LoadReplies.ts`))(this);
   setPresence = async () => (await this.importFile(`${__dirname}/../bin/SetPresence.ts`))(this);
   setCronJobs = async () => (await this.importFile(`${__dirname}/../bin/SetCronJobs.ts`))(this);
   getComponents = async (messageId: string, appendInfo?: string) => (await this.importFile(`${__dirname}/../bin/GetComponents.ts`))(messageId, appendInfo);
   getMessageData = async (messageId: string) => (await this.importFile(`${__dirname}/../bin/GetMessageData.ts`))(this, messageId);
   getEmbed = async (embedId: string, pathPrefix?: string) => (await this.importFile(`${__dirname}/../bin/GetEmbed.ts`))(embedId, pathPrefix);
   editFile = async (data: any, filePath: string, pathPrefix?: string) => (await this.importFile(`${__dirname}/../bin/EditFile.ts`))(data, filePath, pathPrefix);
+  moveFile = async (filePath: string, newFilePath: string, pathPrefix?: string, newPathPrefix?: string) => (await this.importFile(`${__dirname}/../bin/MoveFile.ts`))(filePath, newFilePath, pathPrefix, newPathPrefix);
+  deleteFile = async (filePath: string, pathPrefix?: string) => (await this.importFile(`${__dirname}/../bin/DeleteFile.ts`))(this, filePath, pathPrefix);
   autoReply = async (message: Message, reply: ReplyType, defaultChance: number) => (await this.importFile(`${__dirname}/../bin/AutoReply.ts`))(message, reply, defaultChance);
   registerPic = async (picUrl: string, fileName: string, attachment: Attachment, options: RegisterPicOptions) => (await this.importFile(`${__dirname}/../bin/RegisterPic.ts`))(this, picUrl, fileName, attachment, options);
 

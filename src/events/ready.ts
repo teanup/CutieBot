@@ -8,5 +8,5 @@ export default new Event("ready", async () => {
   await client.setPresence();
   await client.setCronJobs();
   // Load replies
-  await client.LoadReplies();
+  await client.loadReplies();
 });

@@ -1,6 +1,6 @@
 import { ExtendedClient } from "../structures/Client";
 
-export default async function loadMessages(client: ExtendedClient): Promise<void> {
+export default async function loadReplies(client: ExtendedClient): Promise<void> {
   client.log("Loading replies...", "loading");
   
   const replyIdsRaw = process.env.REPLIES as string;
