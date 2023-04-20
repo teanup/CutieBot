@@ -12,6 +12,7 @@ export default new Button({
     // Delete embed file
     await client.deleteFile(`${interaction.picMessageId}.json`, client.picEmbedsTrashDir);
     client.picIdsTrash = client.picIdsTrash.filter((id) => id !== interaction.picMessageId);
+    client.picFileNames.delete(interaction.picMessageId as string);
 
     const embedDelete = await client.getEmbed("texts.components.buttons.deleteconfirm");
     embedDelete.title = (embedDelete.title as string)
