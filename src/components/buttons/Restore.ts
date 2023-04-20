@@ -21,13 +21,19 @@ export default new Button({
 
     const components = await client.getMessageComponents("picture", `${interaction.picMessageId}:${interaction.picFileName}`);
 
-    await picMessage.edit({ embeds: [baseEmbed], components });
+    await picMessage.edit({
+      embeds: [baseEmbed],
+      components
+    });
 
     // Reply to interaction
     const embedRestored = await client.getEmbed("texts.components.buttons.restored");
     embedRestored.title = (embedRestored.title as string)
       .replace("${fileName}", interaction.picFileName as string);
 
-    await interaction.reply({ embeds: [embedRestored], ephemeral: true });
+    await interaction.reply({
+      embeds: [embedRestored],
+      ephemeral: true
+    });
   }
 });

@@ -19,6 +19,9 @@ export default new Button({
       .replace("${fileName}", interaction.picFileName as string);
 
     // Reply to interaction
-    await interaction.update({ embeds: [embedDelete], components: [] });
+    await interaction.update({
+      embeds: [embedDelete],
+      components: []
+    });
   }
 });

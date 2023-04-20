@@ -1,4 +1,15 @@
-import { APIEmbed, ActionRowBuilder, ApplicationCommandDataResolvable, Attachment, Client, ClientEvents, Collection, Message, MessageActionRowComponentBuilder, ModalActionRowComponentBuilder } from "discord.js";
+import {
+  APIEmbed,
+  ActionRowBuilder,
+  ApplicationCommandDataResolvable,
+  Attachment,
+  Client,
+  ClientEvents,
+  Collection,
+  Message,
+  MessageActionRowComponentBuilder,
+  ModalActionRowComponentBuilder
+} from "discord.js";
 import { glob } from "glob";
 import { Event } from "./Event";
 import { RegisterCommandOptions, ReplyType } from "../typings/Client";
@@ -30,7 +41,13 @@ export class ExtendedClient extends Client {
   picFileNames: Collection<string, string> = new Collection();
 
   constructor() {
-    super({ intents: ["Guilds", "GuildMessages", "GuildMembers", "GuildMessageReactions", "MessageContent"] });
+    super({ intents: [
+      "Guilds",
+      "GuildMessages",
+      "GuildMembers",
+      "GuildMessageReactions",
+      "MessageContent"
+    ] });
   };
 
   log(message: string, type?: "success" | "error" | "warn" | "info" | "loading") {
@@ -89,19 +106,32 @@ export class ExtendedClient extends Client {
   };
 
   // Load methods
-  loadReplies = async () => (await this.importFile(`${__dirname}/../bin/LoadReplies.ts`))(this) as Promise<void>;
-  loadPics = async () => (await this.importFile(`${__dirname}/../bin/LoadPics.ts`))(this) as Promise<void>;
-  setPresence = async () => (await this.importFile(`${__dirname}/../bin/SetPresence.ts`))(this) as Promise<void>;
-  setCronJobs = async () => (await this.importFile(`${__dirname}/../bin/SetCronJobs.ts`))(this) as Promise<void>;
-  getMessageComponents = async (messageId: string, appendInfo?: string) => (await this.importFile(`${__dirname}/../bin/GetMessageComponents.ts`))(messageId, appendInfo) as Promise<ActionRowBuilder<MessageActionRowComponentBuilder>[]>;
-  getModalComponents = async (messageId: string, appendInfo?: string, inputDefaultData?: PicOptions) => (await this.importFile(`${__dirname}/../bin/GetModalComponents.ts`))(messageId, appendInfo, inputDefaultData) as Promise<ActionRowBuilder<ModalActionRowComponentBuilder>[]>;
-  getEmbed = async (embedId: string, pathPrefix?: string) => (await this.importFile(`${__dirname}/../bin/GetEmbed.ts`))(embedId, pathPrefix) as Promise<APIEmbed>;
-  editFile = async (data: any, filePath: string, pathPrefix?: string) => (await this.importFile(`${__dirname}/../bin/EditFile.ts`))(data, filePath, pathPrefix) as Promise<void>;
-  moveFile = async (filePath: string, newFilePath: string, pathPrefix?: string, newPathPrefix?: string) => (await this.importFile(`${__dirname}/../bin/MoveFile.ts`))(filePath, newFilePath, pathPrefix, newPathPrefix) as Promise<void>;
-  deleteFile = async (filePath: string, pathPrefix?: string) => (await this.importFile(`${__dirname}/../bin/DeleteFile.ts`))(this, filePath, pathPrefix) as Promise<void>;
-  autoReply = async (message: Message, reply: ReplyType, defaultChance: number) => (await this.importFile(`${__dirname}/../bin/AutoReply.ts`))(message, reply, defaultChance) as Promise<void>;
-  registerPic = async (picUrl: string, fileName: string, attachment: Attachment, options: PicOptions) => (await this.importFile(`${__dirname}/../bin/RegisterPic.ts`))(this, picUrl, fileName, attachment, options) as Promise<void>;
-  setPic = async (picId: string, fileName: string, originalPicMsg: Message, embed: APIEmbed, options: PicOptions) => (await this.importFile(`${__dirname}/../bin/SetPic.ts`))(this, picId, fileName, originalPicMsg, embed, options) as Promise<APIEmbed>;
+  loadReplies = async () =>
+    (await this.importFile(`${__dirname}/../bin/LoadReplies.ts`))(this) as Promise<void>;
+  loadPics = async () =>
+    (await this.importFile(`${__dirname}/../bin/LoadPics.ts`))(this) as Promise<void>;
+  setPresence = async () =>
+    (await this.importFile(`${__dirname}/../bin/SetPresence.ts`))(this) as Promise<void>;
+  setCronJobs = async () =>
+    (await this.importFile(`${__dirname}/../bin/SetCronJobs.ts`))(this) as Promise<void>;
+  getMessageComponents = async (messageId: string, appendInfo?: string) =>
+    (await this.importFile(`${__dirname}/../bin/GetMessageComponents.ts`))(messageId, appendInfo) as Promise<ActionRowBuilder<MessageActionRowComponentBuilder>[]>;
+  getModalComponents = async (messageId: string, appendInfo?: string, inputDefaultData?: PicOptions) =>
+    (await this.importFile(`${__dirname}/../bin/GetModalComponents.ts`))(messageId, appendInfo, inputDefaultData) as Promise<ActionRowBuilder<ModalActionRowComponentBuilder>[]>;
+  getEmbed = async (embedId: string, pathPrefix?: string) =>
+    (await this.importFile(`${__dirname}/../bin/GetEmbed.ts`))(embedId, pathPrefix) as Promise<APIEmbed>;
+  editFile = async (data: any, filePath: string, pathPrefix?: string) =>
+    (await this.importFile(`${__dirname}/../bin/EditFile.ts`))(data, filePath, pathPrefix) as Promise<void>;
+  moveFile = async (filePath: string, newFilePath: string, pathPrefix?: string, newPathPrefix?: string) =>
+    (await this.importFile(`${__dirname}/../bin/MoveFile.ts`))(filePath, newFilePath, pathPrefix, newPathPrefix) as Promise<void>;
+  deleteFile = async (filePath: string, pathPrefix?: string) =>
+    (await this.importFile(`${__dirname}/../bin/DeleteFile.ts`))(this, filePath, pathPrefix) as Promise<void>;
+  autoReply = async (message: Message, reply: ReplyType, defaultChance: number) =>
+    (await this.importFile(`${__dirname}/../bin/AutoReply.ts`))(message, reply, defaultChance) as Promise<void>;
+  registerPic = async (picUrl: string, fileName: string, attachment: Attachment, options: PicOptions) =>
+    (await this.importFile(`${__dirname}/../bin/RegisterPic.ts`))(this, picUrl, fileName, attachment, options) as Promise<void>;
+  setPic = async (picId: string, fileName: string, originalPicMsg: Message, embed: APIEmbed, options: PicOptions) =>
+    (await this.importFile(`${__dirname}/../bin/SetPic.ts`))(this, picId, fileName, originalPicMsg, embed, options) as Promise<APIEmbed>;
 
   async registerCommands({ commands, guildId }: RegisterCommandOptions) {
     if (guildId) {
@@ -135,7 +165,9 @@ export class ExtendedClient extends Client {
     // Load commands
     const appCommands: ApplicationCommandDataResolvable[] = [];
     const commandFiles = await glob(`${__dirname}/../commands/*/*.ts`);
-    this.log(`Found ${commandFiles.length} commands: ${commandFiles.map((commandPath: string) => commandPath.split("/").pop()).join(", ")}`, "success");
+    this.log(`Found ${commandFiles.length} commands: ${
+        commandFiles.map((commandPath: string) => commandPath.split("/").pop()).join(", ")
+      }`, "success");
 
     commandFiles.forEach(async (commandPath: string) => {
       const command: ExtendedCommandType = await this.importFile(commandPath);
@@ -155,7 +187,9 @@ export class ExtendedClient extends Client {
 
     // Load buttons
     const buttonFiles = await glob(`${__dirname}/../components/buttons/*.ts`);
-    this.log(`Found ${buttonFiles.length} buttons: ${buttonFiles.map((buttonPath: string) => buttonPath.split("/").pop()).join(", ")}`, "success");
+    this.log(`Found ${buttonFiles.length} buttons: ${
+        buttonFiles.map((buttonPath: string) => buttonPath.split("/").pop()).join(", ")
+      }`, "success");
 
     buttonFiles.forEach(async (buttonPath: string) => {
       const button: ExtendedButtonType = await this.importFile(buttonPath);
@@ -166,7 +200,9 @@ export class ExtendedClient extends Client {
 
     // Load select menus
     const selectMenuFiles = await glob(`${__dirname}/../components/selectMenus/*.ts`);
-    this.log(`Found ${selectMenuFiles.length} select menus: ${selectMenuFiles.map((selectMenuPath: string) => selectMenuPath.split("/").pop()).join(", ")}`, "success");
+    this.log(`Found ${selectMenuFiles.length} select menus: ${
+        selectMenuFiles.map((selectMenuPath: string) => selectMenuPath.split("/").pop()).join(", ")
+      }`, "success");
 
     selectMenuFiles.forEach(async (selectMenuPath: string) => {
       const selectMenu: ExtendedSelectMenuType = await this.importFile(selectMenuPath);
@@ -177,7 +213,9 @@ export class ExtendedClient extends Client {
 
     // Load modals
     const modalFiles = await glob(`${__dirname}/../components/modals/*.ts`);
-    this.log(`Found ${modalFiles.length} modals: ${modalFiles.map((modalPath: string) => modalPath.split("/").pop()).join(", ")}`, "success");
+    this.log(`Found ${modalFiles.length} modals: ${
+        modalFiles.map((modalPath: string) => modalPath.split("/").pop()).join(", ")
+      }`, "success");
 
     modalFiles.forEach(async (modalPath: string) => {
       const modal: ExtendedModalType = await this.importFile(modalPath);
@@ -188,7 +226,9 @@ export class ExtendedClient extends Client {
 
     // Load events
     const eventFiles = await glob(`${__dirname}/../events/*.ts`);
-    this.log(`Found ${eventFiles.length} events: ${eventFiles.map((eventPath: string) => eventPath.split("/").pop()).join(", ")}`, "success");
+    this.log(`Found ${eventFiles.length} events: ${
+        eventFiles.map((eventPath: string) => eventPath.split("/").pop()).join(", ")
+      }`, "success");
 
     eventFiles.forEach(async (eventPath: string) => {
       const event: Event<keyof ClientEvents> = await this.importFile(eventPath);

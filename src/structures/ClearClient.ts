@@ -4,7 +4,7 @@ export class ClearClient extends Client {
   guildId = process.env.GUILD_ID;
 
   constructor() {
-    super({ intents: ["Guilds", "GuildMessages", "GuildMembers", "GuildMessageReactions"] });
+    super({ intents: ["Guilds"] });
   }
 
   log(message: string, type?: "success" | "error" | "warn" | "info" | "loading") {
@@ -17,7 +17,7 @@ export class ClearClient extends Client {
       blue: "\x1b[34m",
     }
 
-    const date = new Date().toLocaleString("en-UK", { timeZone: "Europe/Paris" });
+    const date = new Date().toLocaleString("fr-FR", { timeZone: "Europe/Paris" });
     let logMessage = `[${date}] ${colorCodes.reset}`;
 
     switch (type) {

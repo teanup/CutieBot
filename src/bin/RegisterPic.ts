@@ -1,4 +1,7 @@
-import { Attachment, TextChannel } from "discord.js";
+import {
+  Attachment,
+  TextChannel
+} from "discord.js";
 import { ExtendedClient } from "src/structures/Client";
 import { PicOptions } from "../bin/SetPic";
 import { appendFile } from "fs/promises";
@@ -40,9 +43,11 @@ export default async function registerPic(client: ExtendedClient, picUrl: string
   // Send embed preview
   const embed = await client.getEmbed("texts.events.messageCreate.registerPic.loading");
   embed.footer = { text: fileName };
-  const picMsg = await picChannel.send({ embeds: [embed], files: [attachment] });
+  const picMsg = await picChannel.send({
+    embeds: [embed],
+    files: [attachment]
+  });
   
-
   // Get and set dominant color
   client.log(`Fetching color for ${fileName}...`, "loading");
   const mainColor = await fetchColor(picUrl);

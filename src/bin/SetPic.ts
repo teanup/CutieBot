@@ -1,4 +1,8 @@
-import { APIEmbed, EmbedAuthorData, Message } from "discord.js";
+import {
+  APIEmbed,
+  EmbedAuthorData,
+  Message
+} from "discord.js";
 import { ExtendedClient } from "src/structures/Client";
 
 export interface PicOptions {
@@ -84,7 +88,10 @@ export default async function SetPic(client: ExtendedClient, picId: string, file
   embed.image = { url: `attachment://${fileName}` };
 
   // Edit embed
-  await originalPicMsg.edit({ embeds: [embed], components: [] });
+  await originalPicMsg.edit({
+    embeds: [embed],
+    components: []
+  });
 
   // Fetch new image URL
   let newURL = "";

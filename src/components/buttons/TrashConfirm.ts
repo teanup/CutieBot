@@ -14,7 +14,10 @@ export default new Button({
         .replace("${fileName}", interaction.picFileName as string);
       (embedNoEdit.description as string) = (embedNoEdit.description as string)
         .replace("${originalMessageURL}", originalMessageURL),
-      await interaction.update({ embeds: [embedNoEdit], components: [] });
+      await interaction.update({
+        embeds: [embedNoEdit],
+        components: []
+      });
       return;
     }
 
@@ -38,7 +41,10 @@ export default new Button({
 
     const components = await client.getMessageComponents("trashconfirm", `${interaction.picMessageId}:${interaction.picFileName}`);
 
-    await picMessage.edit({ embeds: [baseEmbed, embedTrashed], components });
+    await picMessage.edit({
+      embeds: [baseEmbed, embedTrashed],
+      components
+    });
 
     // Edit trash message
     const embedTrashConfirm = await client.getEmbed("texts.components.buttons.trashconfirm.reply");
@@ -47,6 +53,9 @@ export default new Button({
     embedTrashConfirm.description = (embedTrashConfirm.description as string)
       .replace("${originalURL}", originalMessageURL);
 
-    await interaction.update({ embeds: [embedTrashConfirm], components: [] });
+    await interaction.update({ embeds:
+      [embedTrashConfirm],
+      components: []
+    });
   }
 });

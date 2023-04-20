@@ -1,4 +1,8 @@
-import { ModalSubmitInteraction, GuildMember, PermissionResolvable } from "discord.js";
+import {
+  ModalSubmitInteraction,
+  GuildMember,
+  PermissionResolvable
+} from "discord.js";
 import { ExtendedClient } from "../structures/Client";
 
 export interface ExtendedModalInteraction extends ModalSubmitInteraction {

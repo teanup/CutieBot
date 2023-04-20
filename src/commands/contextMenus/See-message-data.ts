@@ -1,6 +1,5 @@
 import { APIEmbed, ApplicationCommandType, EmbedAuthorData } from "discord.js";
 import { MessageContextMenuCommand } from "../../structures/MessageContextMenuCommand";
-import { Embed } from "discord.js";
 
 export default new MessageContextMenuCommand({
   name: "See message data",
@@ -77,6 +76,9 @@ export default new MessageContextMenuCommand({
     }
 
     // Send embeds
-    await interaction.reply({ embeds: embeds, ephemeral: true });
+    await interaction.reply({
+      embeds: embeds,
+      ephemeral: true
+    });
   }
 });

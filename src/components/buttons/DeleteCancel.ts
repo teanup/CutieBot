@@ -8,6 +8,9 @@ export default new Button({
       .replace("${fileName}", interaction.picFileName as string);
 
     // Edit delete message
-    await interaction.update({ embeds: [embedDeleteCancel], components: [] });
+    await interaction.update({
+      embeds: [embedDeleteCancel],
+      components: []
+    });
   }
 });

@@ -1,4 +1,9 @@
-import { ActionRowBuilder, ModalActionRowComponentBuilder, TextInputBuilder, TextInputStyle } from "discord.js";
+import {
+  ActionRowBuilder,
+  ModalActionRowComponentBuilder,
+  TextInputBuilder,
+  TextInputStyle
+} from "discord.js";
 import { PicOptions } from "../bin/SetPic";
 
 export default async function getModalComponents(componentsName: string, appendInfo?: string, inputDefaultData?: PicOptions): Promise<ActionRowBuilder<ModalActionRowComponentBuilder>[]> {

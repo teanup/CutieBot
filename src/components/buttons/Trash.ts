@@ -12,6 +12,10 @@ export default new Button({
     const components = await client.getMessageComponents("trash", `${interaction.picMessageId}:${interaction.picFileName}`);
 
     // Ask for confirmation
-    await interaction.reply({ embeds: [embedTrash], components, ephemeral: true });
+    await interaction.reply({
+      embeds: [embedTrash],
+      components,
+      ephemeral: true
+    });
   }
 });

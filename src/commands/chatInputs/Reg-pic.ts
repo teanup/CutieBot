@@ -47,7 +47,10 @@ export default new ChatInputCommand({
 
     if (!attachment) {
       const embedNoPic = await client.getEmbed("texts.commands.chatInputs.reg-pic.no-pic");
-      await interaction.reply({ embeds: [embedNoPic], ephemeral: true });
+      await interaction.reply({
+        embeds: [embedNoPic],
+        ephemeral: true
+      });
       return;
     }
 

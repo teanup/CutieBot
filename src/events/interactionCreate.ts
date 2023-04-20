@@ -13,7 +13,10 @@ export default new Event("interactionCreate", async (interaction) => {
     if (!command) {
       client.log(`Unknown command ${interaction.commandName} by ${interaction.user.tag} [${interaction.user.id}]`, "warn");
       const embedUnknown = await client.getEmbed("texts.common.unknown.command");
-      await interaction.reply({ embeds: [embedUnknown], ephemeral: true });
+      await interaction.reply({
+        embeds: [embedUnknown],
+        ephemeral: true
+      });
       return;
     };
 
@@ -28,7 +31,10 @@ export default new Event("interactionCreate", async (interaction) => {
       client.log(`Error occured while executing command ${interaction.commandName} by ${interaction.user.tag} [${interaction.user.id}]`, "error");
       console.error(error);
       const embedError = await client.getEmbed("texts.common.error.command");
-      await interaction.reply({ embeds: [embedError], ephemeral: true });
+      await interaction.reply({
+        embeds: [embedError],
+        ephemeral: true
+      });
     }
 
     return;
@@ -40,7 +46,10 @@ export default new Event("interactionCreate", async (interaction) => {
     if (!contextMenu) {
       client.log(`Unknown context menu ${interaction.commandName} by ${interaction.user.tag} [${interaction.user.id}]`, "warn");
       const embedUnknown = await client.getEmbed("texts.common.unknown.contextMenu");
-      await interaction.reply({ embeds: [embedUnknown], ephemeral: true });
+      await interaction.reply({
+        embeds: [embedUnknown],
+        ephemeral: true
+      });
       return;
     };
 
@@ -55,7 +64,10 @@ export default new Event("interactionCreate", async (interaction) => {
       client.log(`Error occured while using context menu ${interaction.commandName} by ${interaction.user.tag} [${interaction.user.id}]`, "error");
       console.error(error);
       const embedError = await client.getEmbed("texts.common.error.contextMenu");
-      await interaction.reply({ embeds: [embedError], ephemeral: true });
+      await interaction.reply({
+        embeds: [embedError],
+        ephemeral: true
+      });
     }
 
     return;
@@ -86,7 +98,10 @@ export default new Event("interactionCreate", async (interaction) => {
     if (!button) {
       client.log(`Unknown button ${customId} by ${interaction.user.tag} [${interaction.user.id}]`, "warn");
       const embedUnknown = await client.getEmbed("texts.common.unknown.button");
-      await interaction.reply({ embeds: [embedUnknown], ephemeral: true });
+      await interaction.reply({
+        embeds: [embedUnknown],
+        ephemeral: true
+      });
       return;
     };
 
@@ -102,7 +117,10 @@ export default new Event("interactionCreate", async (interaction) => {
       client.log(`Error occured while using button ${customId} by ${interaction.user.tag} [${interaction.user.id}]`, "error");
       console.error(error);
       const embedError = await client.getEmbed("texts.common.error.button");
-      await interaction.reply({ embeds: [embedError], ephemeral: true });
+      await interaction.reply({
+        embeds: [embedError],
+        ephemeral: true
+      });
     }
 
     return;
@@ -114,7 +132,10 @@ export default new Event("interactionCreate", async (interaction) => {
     if (!selectMenu) {
       client.log(`Unknown select menu ${interaction.customId} by ${interaction.user.tag} [${interaction.user.id}]`, "warn");
       const embedUnknown = await client.getEmbed("texts.common.unknown.selectMenu");
-      await interaction.reply({ embeds: [embedUnknown], ephemeral: true });
+      await interaction.reply({
+        embeds: [embedUnknown],
+        ephemeral: true
+      });
       return;
     };
 
@@ -128,7 +149,10 @@ export default new Event("interactionCreate", async (interaction) => {
       client.log(`Error occured while using select menu ${interaction.customId} by ${interaction.user.tag} [${interaction.user.id}]`, "error");
       console.error(error);
       const embedError = await client.getEmbed("texts.common.error.selectMenu");
-      await interaction.reply({ embeds: [embedError], ephemeral: true });
+      await interaction.reply({
+        embeds: [embedError],
+        ephemeral: true
+      });
     }
 
     return;
@@ -159,7 +183,10 @@ export default new Event("interactionCreate", async (interaction) => {
     if (!modal) {
       client.log(`Unknown modal ${customId} by ${interaction.user.tag} [${interaction.user.id}]`, "warn");
       const embedUnknown = await client.getEmbed("texts.common.unknown.modal");
-      await interaction.reply({ embeds: [embedUnknown], ephemeral: true });
+      await interaction.reply({
+        embeds: [embedUnknown],
+        ephemeral: true
+      });
       return;
     };
 
@@ -175,7 +202,10 @@ export default new Event("interactionCreate", async (interaction) => {
       client.log(`Error occured while using modal ${customId} by ${interaction.user.tag} [${interaction.user.id}]`, "error");
       console.error(error);
       const embedError = await client.getEmbed("texts.common.error.modal");
-      await interaction.reply({ embeds: [embedError], ephemeral: true });
+      await interaction.reply({
+        embeds: [embedError],
+        ephemeral: true
+      });
     }
 
     return;

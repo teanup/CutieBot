@@ -1,4 +1,8 @@
-import { StringSelectMenuInteraction, GuildMember, PermissionResolvable } from "discord.js";
+import {
+  StringSelectMenuInteraction,
+  GuildMember,
+  PermissionResolvable
+} from "discord.js";
 import { ExtendedClient } from "../structures/Client";
 
 export interface ExtendedSelectMenuInteraction extends StringSelectMenuInteraction {

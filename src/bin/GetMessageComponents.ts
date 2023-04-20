@@ -1,4 +1,9 @@
-import { ActionRowBuilder, ButtonBuilder, ButtonStyle, StringSelectMenuBuilder, StringSelectMenuOptionBuilder, MessageActionRowComponentBuilder } from "discord.js";
+import {
+  ActionRowBuilder,
+  ButtonBuilder,
+  ButtonStyle,
+  MessageActionRowComponentBuilder
+} from "discord.js";
 
 export default async function getMessageComponents(componentsName: string, appendInfo?: string): Promise<ActionRowBuilder<MessageActionRowComponentBuilder>[]> {
   let rows = [];

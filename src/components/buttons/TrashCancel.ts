@@ -8,6 +8,9 @@ export default new Button({
       .replace("${fileName}", interaction.picFileName as string);
 
     // Edit trash message
-    await interaction.update({ embeds: [embedTrashCancel], components: [] });
+    await interaction.update({
+      embeds: [embedTrashCancel],
+      components: []
+    });
   }
 });

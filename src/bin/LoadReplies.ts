@@ -14,7 +14,11 @@ export default async function loadReplies(client: ExtendedClient): Promise<void>
     const replies = repliesRaw.split(",");
     const emoji = process.env[`${id}_EMOJI`] as string;
 
-    client.replies.set(id, { regex, replies, emoji });
+    client.replies.set(id, {
+      regex,
+      replies,
+      emoji
+    });
   });
 
   client.log(`Loaded ${replyIds.length} replies: ${replyIds.join(", ")}`, "success");

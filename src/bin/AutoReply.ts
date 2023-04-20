@@ -11,9 +11,13 @@ export default async function autoReply(message: Message, reply: ReplyType, defa
     let chance = defaultChance;
     for (let i = 0; i < nbReplies; i++) {
       if (Math.random() < chance) {
-        await message.reply({ content: reply.replies[i], failIfNotExists: false });
+        await message.reply({
+          content: reply.replies[i],
+          failIfNotExists: false
+        });
         return;
       }
+
       chance = defaultChance / (i + 2);
     }
   }
