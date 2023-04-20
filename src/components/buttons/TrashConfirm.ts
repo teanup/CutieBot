@@ -14,7 +14,7 @@ export default new Button({
         .replace("${fileName}", interaction.picFileName as string);
       (embedNoEdit.description as string) = (embedNoEdit.description as string)
         .replace("${originalMessageURL}", originalMessageURL),
-      await interaction.reply({ embeds: [embedNoEdit], ephemeral: true });
+      await interaction.update({ embeds: [embedNoEdit], components: [] });
       return;
     }
 
