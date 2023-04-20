@@ -5,6 +5,7 @@ import { RegisterCommandOptions, ReplyType } from "../typings/Client";
 import { ExtendedCommandType } from "../typings/Command";
 import { ExtendedButtonType } from "../typings/Button";
 import { ExtendedSelectMenuType } from "../typings/SelectMenu";
+import { ExtendedModalType } from "../typings/Modal";
 import { RegisterPicOptions } from "../bin/RegisterPic";
 
 export class ExtendedClient extends Client {
@@ -13,6 +14,7 @@ export class ExtendedClient extends Client {
   commands: Collection<string, ExtendedCommandType> = new Collection();
   buttons: Collection<string, ExtendedButtonType> = new Collection();
   selectMenus: Collection<string, ExtendedSelectMenuType> = new Collection();
+  modals: Collection<string, ExtendedModalType> = new Collection();
 
   clientId = process.env.CLIENT_ID as string;
   guildId = process.env.GUILD_ID;
@@ -166,6 +168,17 @@ export class ExtendedClient extends Client {
       if (!selectMenu.customId) return;
 
       this.selectMenus.set(selectMenu.customId, selectMenu);
+    });
+
+    // Load modals
+    const modalFiles = await glob(`${__dirname}/../components/modals/*.ts`);
+    this.log(`Found ${modalFiles.length} modals: ${modalFiles.map((modalPath: string) => modalPath.split("/").pop()).join(", ")}`, "success");
+
+    modalFiles.forEach(async (modalPath: string) => {
+      const modal: ExtendedModalType = await this.importFile(modalPath);
+      if (!modal.customId) return;
+
+      this.modals.set(modal.customId, modal);
     });
 
     // Load events

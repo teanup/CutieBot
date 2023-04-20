@@ -4,6 +4,7 @@ import { Event } from "../structures/Event";
 import { ExtendedCommandInteraction } from "../typings/Command";
 import { ExtendedButtonInteraction } from "../typings/Button";
 import { ExtendedSelectMenuInteraction } from "../typings/SelectMenu";
+import { ExtendedModalInteraction } from "../typings/Modal";
 
 export default new Event("interactionCreate", async (interaction) => {
   // Application commands
@@ -122,6 +123,48 @@ export default new Event("interactionCreate", async (interaction) => {
       client.log(`Error occured while using select menu ${interaction.customId} by ${interaction.user.tag} [${interaction.user.id}]`, "error");
       console.error(error);
       const embedError = await client.getEmbed("texts.common.error.selectMenu");
+      await interaction.reply({ embeds: [embedError], ephemeral: true });
+    }
+
+    return;
+  }
+
+  // Modals
+  if (interaction.isModalSubmit()) {
+    const customIdData = interaction.customId.split(":");
+    const customId = customIdData[0];
+    let picMessageId: string | undefined;
+    let picFileName: string | undefined;
+    switch (customIdData.length) {
+      case 2:
+        picMessageId = customIdData[1];
+        break;
+      case 3:
+        picMessageId = customIdData[1];
+        picFileName = customIdData[2];
+        break;
+    }
+
+    const modal = client.modals.get(customId);
+    if (!modal) {
+      client.log(`Unknown modal ${customId} by ${interaction.user.tag} [${interaction.user.id}]`, "warn");
+      const embedUnknown = await client.getEmbed("texts.common.unknown.modal");
+      await interaction.reply({ embeds: [embedUnknown], ephemeral: true });
+      return;
+    };
+
+    try {
+      if (picMessageId) (interaction as ExtendedModalInteraction).picMessageId = picMessageId;
+      if (picFileName) (interaction as ExtendedModalInteraction).picFileName = picFileName;
+      await modal.run({
+        client,
+        interaction: interaction as ExtendedModalInteraction
+      });
+    }
+    catch (error) {
+      client.log(`Error occured while using modal ${customId} by ${interaction.user.tag} [${interaction.user.id}]`, "error");
+      console.error(error);
+      const embedError = await client.getEmbed("texts.common.error.modal");
       await interaction.reply({ embeds: [embedError], ephemeral: true });
     }
 
