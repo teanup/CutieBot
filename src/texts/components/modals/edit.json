@@ -1,0 +1,5 @@
+{
+  "color": "5868f0",
+  "title": "${fileName} edited!",
+  "description": "This picture has been successfully edited. You can check the current version [on the original message](${originalMessageURL}) or by using the following command : ```\n/cute-pic pic:${fileName}\n```"
+}
