@@ -1,6 +1,6 @@
+import { TextChannel } from "discord.js";
 import { Modal } from "../../structures/Modal";
 import { PicOptions } from "../../bin/SetPic";
-import { TextChannel } from "discord.js";
 
 export default new Modal({
   customId: "edit",
@@ -41,5 +41,6 @@ export default new Modal({
     (embedEdit.description as string) = (embedEdit.description as string)
       .replace("${originalMessageURL}", originalMessageURL)
       .replace("${fileName}", interaction.picFileName as string);
+    await interaction.reply({ embeds: [embedEdit] });
   }
 });
