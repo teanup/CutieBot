@@ -13,10 +13,10 @@ async function parsePicOptions(messageContent: string): Promise<PicOptions> {
 
   // Parsers for each option, allows loose matching
   const regexParsers = {
-    title: /^t[itle]{1,6}[ :]+/i,
-    description: /^de[scription]{0,11}[ :]+/i,
-    date: /^da[te]{0,4}[ :]+/i,
-    location: /^l[ocation]{1,9}[ :]+/i
+    title: /^[Tt][ITLEitle]{1,6}[ :]+/i,
+    description: /^[Dd][Ee][SCRIPTIONscription]{0,11}[ :]+/i,
+    date: /^[Dd][Aa][TEte]{0,4}[ :]+/i,
+    location: /^[Ll][OCATIONocation]{1,9}[ :]+/i
   } as { [key in keyof PicOptions]: RegExp };
 
   // Parse options
@@ -41,6 +41,7 @@ export default new Event("messageCreate", async (message) => {
 
   // Check if message is a picture upload
   if (message.channelId === client.picChannelId) {
+    let hasPics = false;
     message.attachments.map(async (attachment) => {
       if (!attachment.contentType) return;
 
@@ -48,6 +49,8 @@ export default new Event("messageCreate", async (message) => {
 
       // Filter out non-static images
       if (type !== "image" || !["png", "jpg", "jpeg", "webp"].includes(ext)) return;
+
+      hasPics = true;
 
       // Set correct file extension
       const name = attachment.name.split(".").slice(0, -1).join(".");
@@ -68,9 +71,10 @@ export default new Event("messageCreate", async (message) => {
           .replace("${error}", error as string);
         await message.channel.send({ embeds: [embedError] });
       }
-
-      // Delete message
-      await message.delete();
     });
+    // Delete message if message contained pictures
+    if (hasPics) {
+      await message.delete();
+    }
   }
 });

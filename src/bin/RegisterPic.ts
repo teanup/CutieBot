@@ -43,6 +43,7 @@ export default async function registerPic(client: ExtendedClient, picUrl: string
   // Send embed preview
   const embed = await client.getEmbed("texts.events.messageCreate.registerPic.loading");
   embed.footer = { text: fileName };
+  embed.image = { url: `attachment://${fileName}` };
   const picMsg = await picChannel.send({
     embeds: [embed],
     files: [attachment]
