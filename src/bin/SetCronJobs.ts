@@ -10,9 +10,9 @@ export default async function setCronJobs(client: ExtendedClient): Promise<void>
   const lunchCronTime = process.env.LUNCH_CRON_TIME as string;
   const lunchMessagesRaw = process.env.LUNCH_MESSAGES as string;
   const lunchMessages = lunchMessagesRaw.split(",");
-  new CronJob(lunchCronTime, () => {
+  new CronJob(lunchCronTime, async () => {
     const randomMessage = lunchMessages[Math.floor(Math.random() * lunchMessages.length)];
-    cutie.send(randomMessage);
+    await cutie.send(randomMessage);
   }, null, true, cutieTz)
     .start();
 
@@ -20,9 +20,9 @@ export default async function setCronJobs(client: ExtendedClient): Promise<void>
   const dinnerCronTime = process.env.DINNER_CRON_TIME as string;
   const dinnerMessagesRaw = process.env.DINNER_MESSAGES as string;
   const dinnerMessages = dinnerMessagesRaw.split(",");
-  new CronJob(dinnerCronTime, () => {
+  new CronJob(dinnerCronTime, async () => {
     const randomMessage = dinnerMessages[Math.floor(Math.random() * dinnerMessages.length)];
-    cutie.send(randomMessage);
+    await cutie.send(randomMessage);
   }, null, true, cutieTz)
     .start();
 
