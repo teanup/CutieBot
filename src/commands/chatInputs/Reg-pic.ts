@@ -58,7 +58,10 @@ export default new ChatInputCommand({
     const [type, ext] = (attachment.contentType || "").split("/");
     if (type !== "image" || !["png", "jpg", "jpeg", "webp"].includes(ext)) {
       const embedBadFormat = await client.getEmbed("texts.commands.chatInputs.reg-pic.bad-format");
-      await interaction.reply({ embeds: [embedBadFormat], ephemeral: true });
+      await interaction.reply({
+        embeds: [embedBadFormat],
+        ephemeral: true
+      });
       return;
     }
 

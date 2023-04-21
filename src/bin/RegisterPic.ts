@@ -49,14 +49,13 @@ export default async function registerPic(client: ExtendedClient, picUrl: string
   });
   
   // Get and set dominant color
-  client.log(`Fetching color for ${fileName}...`, "loading");
   const mainColor = await fetchColor(picUrl);
   if (mainColor !== "") {
     const mainColorHex = parseInt(mainColor.replace("#", "0x"));
-    client.log(`Fetched color ${mainColor} for ${fileName}`, "success");
+    client.log(`Fetched color ${mainColor} for ${fileName} [${picMsg.id}]`, "success");
     embed.color = mainColorHex;
   } else {
-    client.log(`Failed to fetch color for ${fileName}`, "warn")
+    client.log(`Failed to fetch color for ${fileName} [${picMsg.id}]`, "warn")
   }
 
   // Add to picture cache
@@ -67,5 +66,5 @@ export default async function registerPic(client: ExtendedClient, picUrl: string
   // Get options
   await client.setPic(picMsg.id, fileName, picMsg, embed, options);
 
-  client.log(`Registered ${fileName}`, "info");
+  client.log(`Registered ${fileName} [${picMsg.id}]`, "info");
 }

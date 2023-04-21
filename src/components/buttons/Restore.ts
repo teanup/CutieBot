@@ -35,5 +35,6 @@ export default new Button({
       embeds: [embedRestored],
       ephemeral: true
     });
+    client.log(`${interaction.user.tag} restored ${interaction.picFileName} [${interaction.picMessageId}]`, "info");
   }
 });

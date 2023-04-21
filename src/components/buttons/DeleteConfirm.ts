@@ -23,5 +23,6 @@ export default new Button({
       embeds: [embedDelete],
       components: []
     });
+    client.log(`${interaction.user.tag} deleted ${interaction.picFileName} [${interaction.picMessageId}]`, "info");
   }
 });

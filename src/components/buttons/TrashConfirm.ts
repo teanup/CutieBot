@@ -53,9 +53,10 @@ export default new Button({
     embedTrashConfirm.description = (embedTrashConfirm.description as string)
       .replace("${originalURL}", originalMessageURL);
 
-    await interaction.update({ embeds:
-      [embedTrashConfirm],
+    await interaction.update({
+      embeds: [embedTrashConfirm],
       components: []
     });
+    client.log(`${interaction.user.tag} trashed ${interaction.picFileName} [${interaction.picMessageId}]`, "info");
   }
 });

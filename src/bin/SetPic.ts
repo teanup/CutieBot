@@ -73,14 +73,13 @@ export default async function SetPic(client: ExtendedClient, picId: string, file
   embed.description = options.description;
   embed.timestamp = await parseDate(options.date);
   // Fetch location
-  client.log(`Fetching location for ${fileName}...`, "loading");
   if (options.location !== "") {
     const author = await fetchLocation(options.location);
     if (author.name !== undefined) {
       embed.author = author;
-      client.log(`Fetched location ${author.name} for ${fileName}`, "success");
+      client.log(`Fetched location ${author.name} for ${fileName} [${picId}]`, "success");
     } else {
-      client.log(`Failed to fetch location for ${fileName}`, "warn");
+      client.log(`Failed to fetch location for ${fileName} [${picId}]`, "warn");
     }
   }
 
@@ -101,14 +100,13 @@ export default async function SetPic(client: ExtendedClient, picId: string, file
   embed.image = { url: newURL };
 
   // Save as JSON
-  client.log(`Saving JSON data for ${fileName}...`, "loading");
   const jsonData = JSON.stringify(embed, null, 2);
   try {
     await client.editFile(jsonData, `${picId}.json`, client.picEmbedsDir);
-    client.log(`Saved JSON data for ${fileName}`, "success");
+    client.log(`Saved JSON data for ${fileName} [${picId}]`, "success");
   } catch (error) {
     console.error(error);
-    client.log(`Failed to save JSON data for ${fileName}`, "error");
+    client.log(`Failed to save JSON data for ${fileName} [${picId}]`, "error");
   }
 
   // Add components

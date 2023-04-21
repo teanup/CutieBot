@@ -42,5 +42,6 @@ export default new Modal({
       .replace("${originalMessageURL}", originalMessageURL)
       .replace("${fileName}", interaction.picFileName as string);
     await interaction.reply({ embeds: [embedEdit] });
+    client.log(`${interaction.user.tag} edited ${interaction.picFileName} [${interaction.picMessageId}]`, "info");
   }
 });
