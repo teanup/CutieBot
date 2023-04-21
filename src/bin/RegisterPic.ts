@@ -59,9 +59,10 @@ export default async function registerPic(client: ExtendedClient, picUrl: string
     client.log(`Failed to fetch color for ${fileName}`, "warn")
   }
 
-  // Add to file names
+  // Add to picture cache
   await appendFile(`${__dirname}/../${client.picFileNamesPath}`, `${picMsg.id}\t${fileName}\n`);
   client.picFileNames.set(picMsg.id, fileName);
+  client.picIds.push(picMsg.id);
 
   // Get options
   await client.setPic(picMsg.id, fileName, picMsg, embed, options);

@@ -5,12 +5,13 @@ import { PicOptions } from "../../bin/SetPic";
 export default new Button({
   customId: "edit",
   run: async ({ client, interaction }) => {
+    const fileName = interaction.picFileName as string;
     // Check if editable
     if (!client.picIds.includes(interaction.picMessageId as string)) {
       const embedNoEdit = await client.getEmbed("texts.components.buttons.edit.no-edit");
       const originalMessageURL = `https://discord.com/channels/${interaction.guildId}/${client.picChannelId}/${interaction.picMessageId}`;
       (embedNoEdit.title as string) = (embedNoEdit.title as string)
-        .replace("${fileName}", interaction.picFileName as string);
+        .replace("${fileName}", fileName);
       (embedNoEdit.description as string) = (embedNoEdit.description as string)
         .replace("${originalMessageURL}", originalMessageURL),
       await interaction.reply({
@@ -30,13 +31,15 @@ export default new Button({
     };
 
     // Display modal
-    const appendInfo = `${interaction.picMessageId}:${interaction.picFileName}`;
+    const appendInfo = `${interaction.picMessageId}:${fileName}`;
     const components = await client.getModalComponents("edit", appendInfo, inputDefaultData);
+    // Title length can't be over 45 (funky Discord render if over 30)
+    const title = `Edit ${fileName.length <= 25 ? fileName : `${fileName.slice(0, 22)}...`}`;
     const editModal = new ModalBuilder()
       .setCustomId(`edit:${appendInfo}`)
-      .setTitle(`Edit info for ${interaction.picFileName}`)
+      .setTitle(title)
       .addComponents(components);
-    
+
     await interaction.showModal(editModal);
   }
 });
