@@ -50,20 +50,24 @@ export class ExtendedClient extends Client {
     ] });
   };
 
-  log(message: string, type?: "success" | "error" | "warn" | "info" | "loading") {
+  log(message: string, type?: "important" | "success" | "error" | "warn" | "info" | "loading") {
     const colorCodes = {
       reset: "\x1b[0m",
       dim: "\x1b[2m",
       red: "\x1b[31m",
       green: "\x1b[32m",
-      yellow: "\x1b[33m",
       blue: "\x1b[34m",
+      yellow: "\x1b[33m",
+      magenta: "\x1b[35m",
     };
 
     const date = new Date().toLocaleString("fr-FR", { timeZone: "Europe/Paris" });
     let logMessage = `[${date}] ${colorCodes.reset}`;
 
     switch (type) {
+      case "important":
+        logMessage +=`${colorCodes.magenta}[#]`;
+        break;
       case "success":
         logMessage +=`${colorCodes.green}[+]`;
         break;
