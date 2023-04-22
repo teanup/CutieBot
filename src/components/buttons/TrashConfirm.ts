@@ -10,9 +10,9 @@ export default new Button({
     // Check if editable
     if (!client.picIds.includes(interaction.picMessageId as string)) {
       const embedNoEdit = await client.getEmbed("texts.components.buttons.trashconfirm.no-trash");
-      (embedNoEdit.title as string) = (embedNoEdit.title as string)
+      embedNoEdit.title = (embedNoEdit.title as string)
         .replace("${fileName}", interaction.picFileName as string);
-      (embedNoEdit.description as string) = (embedNoEdit.description as string)
+      embedNoEdit.description = (embedNoEdit.description as string)
         .replace("${originalMessageURL}", originalMessageURL),
       await interaction.update({
         embeds: [embedNoEdit],

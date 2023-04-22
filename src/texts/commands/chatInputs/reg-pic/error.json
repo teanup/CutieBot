@@ -1,7 +1,7 @@
 {
   "color": "ff6644",
   "title": "Picture registration failed",
-  "description": ":x:  Registering the picture ${fileName} has failed\n```${error}```",
+  "description": ":x: \u2000 :registering the picture ${fileName} has failed\n```${error}```",
   "footer": {
     "text": "Please contact peanut#4445 if you think this is a mistake"
   }

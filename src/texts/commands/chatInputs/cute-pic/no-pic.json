@@ -1,7 +1,7 @@
 {
   "color": "eecc44",
   "title": "Couldn't find ${fileName}",
-  "description": ":warning:  This picture doesn't belong to the album.\n\nThe provided file name is either incorrect or the picture is in the trash or permanently deleted.",
+  "description": ":warning: \u2000 :This picture doesn't belong to the album.\n\nThe provided file name is either incorrect or the picture is in the trash or permanently deleted.",
   "footer": {
     "text": "Please contact peanut#4445 if you think this is a mistake"
   }

@@ -1,7 +1,7 @@
 {
   "color": "eecc44",
   "title": "Unknown command",
-  "description": ":warning:  This command doesn't exist",
+  "description": ":warning: \u2000 :This command doesn't exist",
   "footer": {
     "text": "Please contact peanut#4445 if you think this is a mistake"
   }

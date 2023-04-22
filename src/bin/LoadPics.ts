@@ -27,5 +27,5 @@ export default async function loadPics(client: ExtendedClient): Promise<void> {
     }
   });
   
-  client.log(`Loaded ${picEmbeds.length} pictures and ${picEmbedsTrash.length} deleted pictures (${picFileNames.length - 1} file names)`, "success");
+  client.log(`Loaded ${picEmbeds.length} pictures and ${picEmbedsTrash.length} trashed pictures (${picFileNames.length - 1} file names)`, "success");
 }

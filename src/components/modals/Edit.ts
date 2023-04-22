@@ -34,11 +34,11 @@ export default new Modal({
     await client.setPic(interaction.picMessageId as string, interaction.picFileName as string, originalPicMsg, picEmbed, newOptions);
 
     // Reply
-    const originalMessageURL = `https://discord.com/channels/${interaction.guildId}/${client.picChannelId}/${interaction.picMessageId}`;
+    const originalMessageURL = `https://discord.com/channels/${client.guildId}/${client.picChannelId}/${interaction.picMessageId}`;
     const embedEdit = await client.getEmbed("texts.components.modals.edit");
-    (embedEdit.title as string) = (embedEdit.title as string)
+    embedEdit.title = (embedEdit.title as string)
       .replace("${fileName}", interaction.picFileName as string);
-    (embedEdit.description as string) = (embedEdit.description as string)
+    embedEdit.description = (embedEdit.description as string)
       .replace("${originalMessageURL}", originalMessageURL)
       .replace("${fileName}", interaction.picFileName as string);
     await interaction.reply({

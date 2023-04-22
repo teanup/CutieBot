@@ -67,7 +67,7 @@ async function fetchLocation(location: string): Promise<EmbedAuthorData> {
   }
 }
 
-export default async function SetPic(client: ExtendedClient, picId: string, fileName: string, originalPicMsg: Message, embed: APIEmbed, options: PicOptions): Promise<APIEmbed> {
+export default async function SetPic(client: ExtendedClient, picId: string, fileName: string, originalPicMsg: Message, embed: APIEmbed, options: PicOptions): Promise<void> {
   // Get options
   embed.title = options.title;
   embed.description = options.description;
@@ -112,6 +112,4 @@ export default async function SetPic(client: ExtendedClient, picId: string, file
   // Add components
   const components = await client.getMessageComponents("picture", `${picId}:${fileName}`);
   await originalPicMsg.edit({ components });
-
-  return embed;
 }

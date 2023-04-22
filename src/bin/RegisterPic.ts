@@ -36,12 +36,12 @@ async function fetchColor(imageURL: string): Promise<string> {
   }
 }
 
-export default async function registerPic(client: ExtendedClient, picUrl: string, fileName: string, attachment: Attachment, options: PicOptions): Promise<void> {
+export default async function registerPic(client: ExtendedClient, picUrl: string, fileName: string, attachment: Attachment, options: PicOptions): Promise<string> {
   client.log(`Registering ${fileName}...`, "loading");
   const picChannel = await client.channels.fetch(client.picChannelId) as TextChannel;
 
   // Send embed preview
-  const embed = await client.getEmbed("texts.events.messageCreate.registerPic.loading");
+  const embed = await client.getEmbed("texts.commands.chatInputs.reg-pic.loading");
   embed.footer = { text: fileName };
   embed.image = { url: `attachment://${fileName}` };
   const picMsg = await picChannel.send({
@@ -64,8 +64,10 @@ export default async function registerPic(client: ExtendedClient, picUrl: string
   client.picFileNames.set(picMsg.id, fileName);
   client.picIds.push(picMsg.id);
 
-  // Get options
+  // Set pic
   await client.setPic(picMsg.id, fileName, picMsg, embed, options);
 
   client.log(`Registered ${fileName} [${picMsg.id}]`, "info");
+
+  return picMsg.id;
 }

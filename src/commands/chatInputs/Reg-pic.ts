@@ -45,12 +45,11 @@ export default new ChatInputCommand({
       location: args.getString("location") || ""
     }
 
+    await interaction.deferReply({ ephemeral: true });
+
     if (!attachment) {
       const embedNoPic = await client.getEmbed("texts.commands.chatInputs.reg-pic.no-pic");
-      await interaction.reply({
-        embeds: [embedNoPic],
-        ephemeral: true
-      });
+      await interaction.editReply({ embeds: [embedNoPic] });
       return;
     }
 
@@ -58,10 +57,7 @@ export default new ChatInputCommand({
     const [type, ext] = (attachment.contentType || "").split("/");
     if (type !== "image" || !["png", "jpg", "jpeg", "webp"].includes(ext)) {
       const embedBadFormat = await client.getEmbed("texts.commands.chatInputs.reg-pic.bad-format");
-      await interaction.reply({
-        embeds: [embedBadFormat],
-        ephemeral: true
-      });
+      await interaction.editReply({ embeds: [embedBadFormat] });
       return;
     }
 
@@ -71,14 +67,23 @@ export default new ChatInputCommand({
     attachment.name = fileName;
 
     try {
-      await client.registerPic(attachment.url, fileName, attachment, options);
+      const picMsgId = await client.registerPic(attachment.url, fileName, attachment, options);
+      const picMessageURL = `https://discord.com/channels/${client.guildId}/${client.picChannelId}/${picMsgId}`;
+      const embedSuccess = await client.getEmbed("texts.commands.chatInputs.reg-pic.success");
+      embedSuccess.title = (embedSuccess.title as string)
+        .replace("${fileName}", fileName);
+      embedSuccess.description = (embedSuccess.description as string)
+        .replace("${fileName}", fileName)
+        .replace("${picMessageURL}", picMessageURL);
+      await interaction.editReply({ embeds: [embedSuccess] });
     } catch (error) {
       console.error(error);
       client.log(`Failed to register picture ${fileName}`, "error");
-      const embedError = await client.getEmbed("texts.events.messageCreate.registerPic.error");
+      const embedError = await client.getEmbed("texts.commands.chatInputs.reg-pic.error");
       embedError.description = (embedError.description as string)
-        .replace("${fileName}", fileName);
-      await interaction.reply({ embeds: [embedError] });
+        .replace("${fileName}", fileName)
+        .replace("${error}", error as string);
+      await interaction.editReply({ embeds: [embedError] });
     }
   }
 });

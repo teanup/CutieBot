@@ -1,7 +1,7 @@
 {
   "color": "ff6644",
   "title": "Invalid file",
-  "description": ":x:  The attachment you sent is not a valid static image",
+  "description": ":x: \u2000 :The attachment you sent is not a valid static image",
   "footer": {
     "text": "Please contact peanut#4445 if you think this is a mistake"
   }

@@ -1,0 +1,8 @@
+{
+  "color": "77ee77",
+  "title": "${fileName} registered",
+  "description": ":white_check_mark: \u2000 :The picture has been registered.\n\nYou can check the embed message there: ${picMessageURL} or by using the following command:```\n/cute-pic pic:${fileName}\n```",
+  "footer": {
+    "text": "Please note that file name conflicts might make this command show another picture."
+  }
+}

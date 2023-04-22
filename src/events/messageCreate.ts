@@ -65,11 +65,11 @@ export default new Event("messageCreate", async (message) => {
       } catch (error) {
         console.error(error);
         client.log(`Failed to register picture ${fileName}`, "error");
-        const embedError = await client.getEmbed("texts.events.messageCreate.registerPic.error");
+        const embedError = await client.getEmbed("texts.commands.chatInputs.reg-pic.error");
         embedError.description = (embedError.description as string)
           .replace("${fileName}", fileName)
           .replace("${error}", error as string);
-        await message.channel.send({ embeds: [embedError] });
+        await message.reply({ embeds: [embedError] });
       }
     });
     // Delete message if message contained pictures

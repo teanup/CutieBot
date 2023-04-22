@@ -9,10 +9,10 @@ export default new Button({
     // Check if editable
     if (!client.picIds.includes(interaction.picMessageId as string)) {
       const embedNoEdit = await client.getEmbed("texts.components.buttons.edit.no-edit");
-      const originalMessageURL = `https://discord.com/channels/${interaction.guildId}/${client.picChannelId}/${interaction.picMessageId}`;
-      (embedNoEdit.title as string) = (embedNoEdit.title as string)
+      const originalMessageURL = `https://discord.com/channels/${client.guildId}/${client.picChannelId}/${interaction.picMessageId}`;
+      embedNoEdit.title = (embedNoEdit.title as string)
         .replace("${fileName}", fileName);
-      (embedNoEdit.description as string) = (embedNoEdit.description as string)
+      embedNoEdit.description = (embedNoEdit.description as string)
         .replace("${originalMessageURL}", originalMessageURL),
       await interaction.reply({
         embeds: [embedNoEdit],
