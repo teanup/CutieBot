@@ -24,10 +24,10 @@ export default new Button({
     // Load current data
     const picEmbed = await client.getEmbed(interaction.picMessageId as string, client.picEmbedsDir);
     const inputDefaultData: PicOptions = {
-      title: picEmbed.title || "",
+      title: picEmbed.title?.slice(0, 100) || "",
       description: picEmbed.description || "",
       date: picEmbed.timestamp?.split("T")[0] || "",
-      location: picEmbed.author?.name || ""
+      location: picEmbed.author?.name.slice(0, 100) || ""
     };
 
     // Display modal
