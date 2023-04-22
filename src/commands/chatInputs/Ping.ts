@@ -26,7 +26,7 @@ export default new ChatInputCommand({
     embed.fields[0].value = embed.fields[0].value
       .replace("${latency}", `${latency}` )
       .replace("${emoji}", emojiPicker(latency));
-    embed.fields[2].value = embed.fields[2].value
+    embed.fields[1].value = embed.fields[1].value
       .replace("${APILatency}", `${APILatency}`)
       .replace("${APIEmoji}", emojiPicker(APILatency));
 

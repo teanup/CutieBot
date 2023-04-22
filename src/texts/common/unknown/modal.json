@@ -1,7 +1,7 @@
 {
   "color": "eecc44",
-  "title": "Unknown modal",
-  "description": ":warning: \u2000 :This modal doesn't exist",
+  "title": ":warning:   Unknown modal",
+  "description": ":This modal doesn't exist",
   "footer": {
     "text": "Please contact peanut#4445 if you think this is a mistake"
   }

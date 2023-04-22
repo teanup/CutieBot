@@ -1,7 +1,7 @@
 {
   "color": "eecc44",
-  "title": "Unknown select menu",
-  "description": ":warning: \u2000 :This select menu doesn't exist",
+  "title": ":warning:   Unknown select menu",
+  "description": "This select menu doesn't exist",
   "footer": {
     "text": "Please contact peanut#4445 if you think this is a mistake"
   }

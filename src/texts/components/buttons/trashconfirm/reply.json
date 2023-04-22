@@ -1,5 +1,5 @@
 {
   "color": "ffaa00",
   "title": "${fileName} is now in the trash",
-  "description": "If this was a mistake, you can restore it [from this message](${originalURL})."
+  "description": "If this was a mistake, you can restore it from the original message: ${originalURL}"
 }
