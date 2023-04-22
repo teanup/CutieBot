@@ -2,7 +2,9 @@ import {
   ActionRowBuilder,
   ButtonBuilder,
   ButtonStyle,
-  MessageActionRowComponentBuilder
+  MessageActionRowComponentBuilder,
+  StringSelectMenuBuilder,
+  StringSelectMenuOptionBuilder
 } from "discord.js";
 import { ExtendedClient } from "../structures/Client";
 
@@ -25,13 +27,14 @@ export default async function getMessageComponents(client: ExtendedClient, compo
       rows.push(new ActionRowBuilder<ButtonBuilder>()
         .addComponents(editButton, trashButton));
       break;
+
     case "cute-pic":
       const originalMessageId = (appendInfo as string).split(":")[0];
       const originalMessageURL = `https://discord.com/channels/${client.guildId}/${client.picChannelId}/${originalMessageId}`;
       const updateButton = new ButtonBuilder()
         .setCustomId(`update:${appendInfo}`)
-        .setEmoji("🔄")
-        .setStyle(ButtonStyle.Secondary);
+        .setEmoji("✨")
+        .setStyle(ButtonStyle.Success);
       const optionsButton = new ButtonBuilder()
         .setURL(originalMessageURL)
         .setEmoji("⚙️")
@@ -40,6 +43,7 @@ export default async function getMessageComponents(client: ExtendedClient, compo
       rows.push(new ActionRowBuilder<ButtonBuilder>()
         .addComponents(updateButton, optionsButton));
       break;
+
     case "trash":
       const trashCancelButton = new ButtonBuilder()
         .setCustomId(`trashcancel:${appendInfo}`)
@@ -55,6 +59,7 @@ export default async function getMessageComponents(client: ExtendedClient, compo
       rows.push(new ActionRowBuilder<ButtonBuilder>()
         .addComponents(trashCancelButton, trashConfirmButton));
       break;
+
     case "trashconfirm":
       const restoreButton = new ButtonBuilder()
         .setCustomId(`restore:${appendInfo}`)
@@ -70,6 +75,7 @@ export default async function getMessageComponents(client: ExtendedClient, compo
       rows.push(new ActionRowBuilder<ButtonBuilder>()
         .addComponents(restoreButton, delButton));
       break;
+
     case "delete":
       const deleteCancelButton = new ButtonBuilder()
         .setCustomId(`deletecancel:${appendInfo}`)
@@ -86,8 +92,63 @@ export default async function getMessageComponents(client: ExtendedClient, compo
         .addComponents(deleteCancelButton, deleteConfirmButton));
       break;
 
-      default:
-        break;
+    case "help-pics":
+      const helpSelectMenu = new StringSelectMenuBuilder()
+        .setCustomId("help-pics")
+        .setPlaceholder("Help with the cute pics features")
+        .setMinValues(1)
+        .setMaxValues(1)
+        .addOptions([
+          new StringSelectMenuOptionBuilder({
+            value: "register",
+            label: "Registration",
+            emoji: "✅",
+            description: "Register new pictures to add them to the album"
+          }),
+          new StringSelectMenuOptionBuilder({
+            value: "view",
+            label: "Viewing",
+            emoji: "🖼️",
+            description: "Ask for a random picture or view a specific one"
+          }),
+          new StringSelectMenuOptionBuilder({
+            value: "edit",
+            label: "Editing",
+            emoji: "📝",
+            description: "Edit the attributes of a picture"
+          }),
+          new StringSelectMenuOptionBuilder({
+            value: "update",
+            label: "Updating",
+            emoji: "✨",
+            description: "Update a picture message with the current attributes"
+          }),
+          new StringSelectMenuOptionBuilder({
+            value: "trash",
+            label: "Trashing",
+            emoji: "🗑️",
+            description: "Trash a picture to remove it from the album"
+          }),
+          new StringSelectMenuOptionBuilder({
+            value: "restore",
+            label: "Restoring",
+            emoji: "♻️",
+            description: "Restore a trashed picture"
+          }),
+          new StringSelectMenuOptionBuilder({
+            value: "delete",
+            label: "Deleting",
+            emoji: "🧹",
+            description: "Delete a trashed picture permanently"
+          })
+        ]);
+
+      rows.push(new ActionRowBuilder<StringSelectMenuBuilder>()
+        .addComponents(helpSelectMenu));
+      break;
+
+    default:
+      break;
   }
 
   return rows;
