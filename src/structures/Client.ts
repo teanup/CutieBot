@@ -119,7 +119,7 @@ export class ExtendedClient extends Client {
   setCronJobs = async () =>
     (await this.importFile(`${__dirname}/../bin/SetCronJobs.ts`))(this) as Promise<void>;
   getMessageComponents = async (messageId: string, appendInfo?: string) =>
-    (await this.importFile(`${__dirname}/../bin/GetMessageComponents.ts`))(messageId, appendInfo) as Promise<ActionRowBuilder<MessageActionRowComponentBuilder>[]>;
+    (await this.importFile(`${__dirname}/../bin/GetMessageComponents.ts`))(this, messageId, appendInfo) as Promise<ActionRowBuilder<MessageActionRowComponentBuilder>[]>;
   getModalComponents = async (messageId: string, appendInfo?: string, inputDefaultData?: PicOptions) =>
     (await this.importFile(`${__dirname}/../bin/GetModalComponents.ts`))(messageId, appendInfo, inputDefaultData) as Promise<ActionRowBuilder<ModalActionRowComponentBuilder>[]>;
   getEmbed = async (embedId: string, pathPrefix?: string) =>
@@ -133,9 +133,9 @@ export class ExtendedClient extends Client {
   autoReply = async (message: Message, reply: ReplyType, defaultChance: number) =>
     (await this.importFile(`${__dirname}/../bin/AutoReply.ts`))(message, reply, defaultChance) as Promise<void>;
   registerPic = async (picUrl: string, fileName: string, attachment: Attachment, options: PicOptions) =>
-    (await this.importFile(`${__dirname}/../bin/RegisterPic.ts`))(this, picUrl, fileName, attachment, options) as Promise<void>;
+    (await this.importFile(`${__dirname}/../bin/RegisterPic.ts`))(this, picUrl, fileName, attachment, options) as Promise<string>;
   setPic = async (picId: string, fileName: string, originalPicMsg: Message, embed: APIEmbed, options: PicOptions) =>
-    (await this.importFile(`${__dirname}/../bin/SetPic.ts`))(this, picId, fileName, originalPicMsg, embed, options) as Promise<APIEmbed>;
+    (await this.importFile(`${__dirname}/../bin/SetPic.ts`))(this, picId, fileName, originalPicMsg, embed, options) as Promise<void>;
 
   async registerCommands({ commands, guildId }: RegisterCommandOptions) {
     if (guildId) {

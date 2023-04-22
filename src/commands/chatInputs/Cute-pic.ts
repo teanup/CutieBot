@@ -27,7 +27,7 @@ export default new ChatInputCommand({
         appendInfo = `${picMsgId}:${pic}`;
       } else {
         const embedNoPic = await client.getEmbed("texts.commands.chatInputs.cute-pic.no-pic");
-        (embedNoPic.title as string) = (embedNoPic.title as string)
+        embedNoPic.title = (embedNoPic.title as string)
           .replace("${fileName}", pic);
         await interaction.reply({
           embeds: [embedNoPic],
@@ -44,7 +44,7 @@ export default new ChatInputCommand({
     const picEmbed = await client.getEmbed(picMsgId, `${client.picEmbedsDir}`);
 
     // Send embed
-    const components = await client.getMessageComponents("picture", appendInfo);
+    const components = await client.getMessageComponents("cute-pic", appendInfo);
     await interaction.reply({
       embeds: [picEmbed],
       components

@@ -4,8 +4,9 @@ import {
   ButtonStyle,
   MessageActionRowComponentBuilder
 } from "discord.js";
+import { ExtendedClient } from "../structures/Client";
 
-export default async function getMessageComponents(componentsName: string, appendInfo?: string): Promise<ActionRowBuilder<MessageActionRowComponentBuilder>[]> {
+export default async function getMessageComponents(client: ExtendedClient, componentsName: string, appendInfo?: string): Promise<ActionRowBuilder<MessageActionRowComponentBuilder>[]> {
   let rows = [];
 
   switch (componentsName) {
@@ -23,6 +24,21 @@ export default async function getMessageComponents(componentsName: string, appen
 
       rows.push(new ActionRowBuilder<ButtonBuilder>()
         .addComponents(editButton, trashButton));
+      break;
+    case "cute-pic":
+      const originalMessageId = (appendInfo as string).split(":")[0];
+      const originalMessageURL = `https://discord.com/channels/${client.guildId}/${client.picChannelId}/${originalMessageId}`;
+      const updateButton = new ButtonBuilder()
+        .setCustomId(`update:${appendInfo}`)
+        .setEmoji("🔄")
+        .setStyle(ButtonStyle.Secondary);
+      const optionsButton = new ButtonBuilder()
+        .setURL(originalMessageURL)
+        .setEmoji("⚙️")
+        .setStyle(ButtonStyle.Link);
+
+      rows.push(new ActionRowBuilder<ButtonBuilder>()
+        .addComponents(updateButton, optionsButton));
       break;
     case "trash":
       const trashCancelButton = new ButtonBuilder()
