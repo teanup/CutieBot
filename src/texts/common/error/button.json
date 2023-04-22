@@ -1,7 +1,7 @@
 {
   "color": "ff6644",
   "title": ":x:   Error",
-  "description": ":An error occured while using this button",
+  "description": "An error occured while using this button",
   "footer": {
     "text": "Please contact peanut#4445 if you think this is a mistake"
   }

@@ -1,7 +1,7 @@
 {
   "color": "eecc44",
   "title": ":warning:   No data found",
-  "description": ":No data was found in this message",
+  "description": "No data was found in this message",
   "author": {
     "name": "View message"
   },
