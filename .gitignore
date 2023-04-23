@@ -1,9 +1,6 @@
 # Embeds
 media/embeds/
 
-# Extra
-src/extra/
-
 # Logs
 logs
 *.log

@@ -1,0 +1,23 @@
+
+{
+  "color": "66dd66",
+  "title": ":white_check_mark:   Registering new pictures",
+  "description": "There are two ways to register a picture. You can either **send picture in <#${picChannelId}>** or **use the `/reg-pic` command**.\n\u200b",
+  "fields": [
+    {
+      "name": "Sending pictures in a message",
+      "value": "When sending one or multiple (Discord limit being 10) pictures in <#${picChannelId}>, the bot will automatically register them.\n\nYou can also add optional attributes such as a title, description, date or location. The default syntax is:\n> title: <title>\n> description: <description>\n> date: <date>\n> location: <location>\nBut the bot will easily detect typos, allowing some flexibility such as:\n> da     <date>\n> tillte  : <title>\n> desc:<description>\n\u200b",
+      "inline": false
+    },
+    {
+      "name": "Using the `/reg-pic` command",
+      "value": "You can also use the **`/reg-pic`** command to register pictures. The syntax is: ```\n/reg-pic pic:<picture_attachment> [title:<title>] [description:<description>] [date:<date>] [location:<location>]\n```\nOnce again, the title, description, date and location are optional.\n\u200b",
+      "inline": false
+    },
+    {
+      "name": "About attributes parsing",
+      "value": "Because of some Discord limits, a title should be less than 100 characters long.\n\nThe date can be in any usual format such as `YYYY-MM-DD`, `DD/MM/YY`, `DD-MM-YYYY`, `MM.DD.YYYY`, `DD MMM YY`...\n\nThe location can be anything, as long as it is less than 100 characters long and preferably precise enough to represent a unique location.",
+      "inline": false
+    }
+  ]
+}

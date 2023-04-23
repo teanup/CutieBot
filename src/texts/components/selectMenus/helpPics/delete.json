@@ -1,0 +1,12 @@
+
+{
+  "color": "ee4422",
+  "title": ":broom:   Deleting a picture",
+  "description": "You can permanently delete a picture from the album if it is already in the trash.\n\u200b",
+  "fields": [
+    {
+      "name": "Deleting a picture from the album",
+      "value": "First, click on the **delete button (:broom:)** of the message of the picture you want to delete.\nThen confirm the action by clicking on the **:broom: button** in the confirmation message."
+    }
+  ]
+}

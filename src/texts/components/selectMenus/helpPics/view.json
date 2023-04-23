@@ -1,0 +1,18 @@
+
+{
+  "color": "6688dd",
+  "title": ":frame_photo:   Viewing the album's pictures",
+  "description": "All registered pictures can be **viewed in <#${picChannelId}>** but you can request the bot to show them anywhere **using the `/cute-pic` command**.\n\u200b",
+  "fields": [
+    {
+      "name": "Asking for random pictures",
+      "value": "To have the bot reply with a random picture from the album, simply use this command: ```\n/cute-pic\n```\u200b",
+      "inline": false
+    },
+    {
+      "name": "Asking for a specific picture",
+      "value": "To have the bot reply with a specific picture from the album, use this command and provide the file name of the picture: ```\n/cute-pic pic:<picture_name>\n```\nPlease note that if two pictures are registered with the same name, the bot will reply with the first one it finds.",
+      "inline": false
+    }
+  ]
+}
