@@ -1,0 +1,12 @@
+
+{
+  "color": "dd4488",
+  "title": ":wastebasket:   Trashing a picture",
+  "description": "You can put a picture to the trash to prevent it from appearing in the `/cute-pic` album.\n\nTo do so, you will first need to find the original message of the picture in <#${picChannelId}>.\n\u200b",
+  "fields": [
+    {
+      "name": "Putting a picture to the trash",
+      "value": "First, click on the **trash button (:wastebasket:)** of the message of the picture you want to put to the trash.\nThen confirm the action by clicking on the **:wastebasket: button** in the confirmation message."
+    }
+  ]
+}

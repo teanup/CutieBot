@@ -1,0 +1,8 @@
+{
+  "color": "ddcc66",
+  "title": "Content",
+  "description": "```${contentData}```",
+  "author": {
+    "name": "View message"
+  }
+}

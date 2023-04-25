@@ -1,0 +1,8 @@
+{
+  "color": "eecc44",
+  "title": ":warning:   Unable to edit ${fileName}",
+  "description": "You cannot edit this picture because it is either in the trash or deleted.\n\nPlease refer to the options on the original message: ${originalMessageURL}\nIf the message doesn't exist anymore, then picture has been permanently deleted.",
+  "footer": {
+    "text": "Please contact peanut#4445 if you think this is a mistake"
+  }
+}

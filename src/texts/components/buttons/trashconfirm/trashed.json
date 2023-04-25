@@ -1,0 +1,5 @@
+{
+  "color": "ee4422",
+  "title": "${fileName} is in the trash",
+  "description": "This means this picture currently doesn't belong to the **`/cute-pic`** album.\n\nRestore it to make it available again."
+}

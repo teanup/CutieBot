@@ -1,0 +1,6 @@
+
+{
+  "color": "cccc44",
+  "title": ":sparkles:   Updating a picture message",
+  "description": "After editing a picture's attributes, the old picture messages generated with `/cute-pic` will keep the old attributes.\n\nThis is why you can use the **update button (:sparkles:)** to update the picture message with the new attributes."
+}

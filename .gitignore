@@ -1,9 +1,6 @@
 # Embeds
 media/embeds/
 
-# Extra
-src/extra/
-
 # Logs
 logs
 *.log
@@ -47,9 +44,6 @@ build/Release
 node_modules/
 jspm_packages/
 
-# TypeScript v1 declaration files
-typings/
-
 # TypeScript cache
 *.tsbuildinfo
 
@@ -75,7 +69,7 @@ typings/
 .yarn-integrity
 
 # dotenv environment variables file
-.env
+*.env
 .env.test
 
 # parcel-bundler cache (https://parceljs.org/)

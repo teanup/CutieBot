@@ -1,0 +1,18 @@
+
+{
+  "color": "ddaa44",
+  "title": ":pencil:   Editing a picture's attributes",
+  "description": "You can edit the title, description, date and location of a picture.\n\nTo do so, you will first need to find the original message of the picture in <#${picChannelId}>. If you use the `/cute-pic` command, you can click the **options button (:gear:)** to open the picture's original message.\n\u200b",
+  "fields": [
+    {
+      "name": "Editing attributes",
+      "value": "Simply click the **edit button (:pencil:)** on the original message and edit the attributes you want to change.\n\nLeave the attributes you don't want to change blank.\n\u200b",
+      "inline": false
+    },
+    {
+      "name": "Resetting attributes",
+      "value": "If you want to reset an attribute, type a space in the field.",
+      "inline": false
+    }
+  ]
+}
